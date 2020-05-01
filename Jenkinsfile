@@ -9,7 +9,7 @@ pipeline {
                 timeout(time:30, unit:"MINUTES"){
                     script{
                         print("Example1")
-                        tools.PrintMes("this is my lib!",'red')		//我上面定义了一个tools，tools引用的就是org/devops/tools.groovy文件。
+                        tools.PrintMes("this is my lib!","green1')		//我上面定义了一个tools，tools引用的就是org/devops/tools.groovy文件。
                     }											//此时使用tools.PrintMes就是使用tools.groovy文件里面的printMe
                 }
             }
