@@ -1,5 +1,4 @@
 package org.devops
-def tools = new org.devops.tools()
 
 //d打印内容
 def PrintMes(content){
