@@ -5,7 +5,7 @@ def Build(buildType,buildShell){
     buildHome = tool buildTools[buildType]
     //sh "${buildHome}/bin/${buildType} ${buildShell}"
 	sh """
-    	export PATH=${buildHome}:$PATH
+    	export PATH=${buildHome}/bin:$PATH
     	${buildHome}/bin/${buildType} ${buildShell}
    	"""
 }
