@@ -29,7 +29,7 @@ pipeline {
             causeString: 'Triggered on $branch',
             printContributedVariables: true,
             printPostContent: true,
-            silentResponse: true,
+            silentResponse: true
 			////regexpFilterText: '$ref',
 			////regexpFilterExpression: 'refs/heads(master|dev)'
 			//regexpFilterText: '$object_kind $before $after',
