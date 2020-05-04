@@ -30,11 +30,11 @@ pipeline {
             printContributedVariables: true,
             printPostContent: true,
             silentResponse: true,
-			regexpFilterText: '$branch',
-			regexpFilterExpression: '(master|dev)'
-			//regexpFilterText: '$object_kind $before $after',
-			//regexpFilterExpression: 'push\s.{40}\s.{40}'
-			////regexpFilterExpression: '^push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
+			//regexpFilterText: '$branch',
+			//regexpFilterExpression: '(master|dev)'
+			regexpFilterText: '$object_kind $before $after',
+			regexpFilterExpression: 'push\s.*+'
+			//regexpFilterExpression: '^push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
         )
     }
     stages {
