@@ -1,7 +1,7 @@
 package org.devops
 
-def gitServer = "https://gitlab-netadm.leju.com/api/v4"
 def HttpReq(reqType,reqUrl,reqBody){
+	def gitServer = "https://gitlab-netadm.leju.com/api/v4"
 	def tools = new org.devops.tools()
 	withCredentials([string(credentialsId: 'gitlab-root-token2', variable: 'gitlabToken')]) {
 		result = httpRequest(
