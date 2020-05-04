@@ -3,6 +3,7 @@ def build = new org.devops.build()
 def tools = new org.devops.tools()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
+	currentBuild.number = "Trigger by ${buildUser} ${branch}"
 }
 pipeline {
     agent { node{label "master"} }
@@ -10,6 +11,7 @@ pipeline {
         GenericTrigger(
         	genericVariables: [
                 [key: "branch", value: "\$.ref", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
+                [key: "buildUser", value: "\$.user_username", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
                 [key: "srcUrl", value: "\$.project.git_ssh_url", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
             ],
         	genericRequestVariables: [
@@ -29,7 +31,7 @@ pipeline {
             steps{
                 script{
                     tools.PrintMes("${branchName}","green")
-                    tools.PrintMes("${currentBuild.number}","green")
+                    //tools.PrintMes("${currentBuild.number}","green")
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
                               doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
                               userRemoteConfigs: [[credentialsId: '4eaf63a6-52b2-4d8b-ba14-26322a3135e0',
