@@ -30,7 +30,7 @@ pipeline {
             printContributedVariables: true,
             printPostContent: true,
             silentResponse: true,
-			regexpFilterText: "$object_kind $before $after"
+			regexpFilterText: "$object_kind $before $after",
 			regexpFilterpression: '$push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
         )
     }
