@@ -18,7 +18,8 @@ def HttpReq(reqType,reqUrl,reqBody){
 }
 
 def ChangeCommitStatus(projectId,commitSha,status){
-	commitApi = "/projects/${projectId}/statuses/${commitSha}?state=${status}"
+	def tools = new org.devops.tools()
+	commitApi = "projects/${projectId}/statuses/${commitSha}?state=${status}"
 	response = HttpReq('POST',commitApi,'')
 	tools.PrintMes("Status: ${response}","green")
 	tools.PrintMes("Content: ${response}","green")
