@@ -29,7 +29,7 @@ pipeline {
             steps{
                 script{
                     tools.PrintMes("${branchName}","green")
-                    tools.PrintMes("${currentBuild.description}","green")
+                    tools.PrintMes("${currentBuild.number}","green")
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
                               doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
                               userRemoteConfigs: [[credentialsId: '4eaf63a6-52b2-4d8b-ba14-26322a3135e0',
