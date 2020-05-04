@@ -52,7 +52,7 @@ pipeline {
             steps{
                 script{
                     buildHome = tool "mvn-3.6.3"
-                    sh "${buildHome}/bin/mvn -v"
+                    sh "${buildHome}/bin/mvn clean install"
                 }
             }
         }
