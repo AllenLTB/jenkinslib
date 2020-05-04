@@ -1,6 +1,7 @@
 @Library('jenkinslib@master')
 def build = new org.devops.build()
 def tools = new org.devops.tools()
+def gitlab = new org.devops.gitlab()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
