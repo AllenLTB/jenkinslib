@@ -1,0 +1,49 @@
+@Library('jenkinslib@master')
+def build = new org.devops.build()
+def tools = new org.devops.tools()
+pipeline {
+    agent { node{label "master"} }
+    triggers {
+        GenericTrigger(
+        	genericVariables: [
+                [key: "branch", value: "\$.ref", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
+                [key: "srcUrl", value: "\$.project.git_ssh_url", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
+            ],
+        	genericRequestVariables: [
+                [key: "runOps", regexpFilter: ""]
+            ],
+            genericHeaderVariables: [
+        		[key: "runOps", regexpFilter: ""]
+            ],
+            token: 'demon-maven-service_PUSH',
+            causeString: "Triggered on $branchName",
+            printContributedVariables: true,
+            printPostContent: true,
+            silentResponse: true
+        )
+    }
+    stages {
+        stage('Checkout') {
+            steps{
+                script{
+                    if ( "${runOpts}" =="GitlabPush" ) {
+                        branchName = branch - '/refs/heads/'
+                    }
+                    tools.PrintMes("${branchName}","green1")
+                    checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
+                              doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
+                              userRemoteConfigs: [[credentialsId: '4eaf63a6-52b2-4d8b-ba14-26322a3135e0',
+                              url: "${srcUrl}"]]])
+                }
+            }
+        }
+        stage('Build') {
+            steps{
+                script{
+                    buildHome = tool "mvn-3.6.3"
+                    sh "${buildHome}/bin/mvn -v"
+                }
+            }
+        }
+    }
+}
