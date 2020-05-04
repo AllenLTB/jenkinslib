@@ -2,6 +2,7 @@
 def build = new org.devops.build()
 def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
+def toemail = new org.devops.toemail()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
@@ -63,6 +64,7 @@ pipeline {
 			script{
 				tools.PrintMes("success","green")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
+				toemail.toemail("tianbao1@leju.com,18310892118@163.com")
 			}
 		}
 		failure{
