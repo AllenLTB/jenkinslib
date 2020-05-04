@@ -31,7 +31,7 @@ pipeline {
             printPostContent: true,
             silentResponse: true,
 			regexpFilterText: '$object_kind $before $after',
-			regexpFilterExpression: '$push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
+			regexpFilterExpression: '^push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
         )
     }
     stages {
