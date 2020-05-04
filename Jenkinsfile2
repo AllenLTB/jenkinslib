@@ -68,4 +68,5 @@ pipeline {
 				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
 			}
 		}
+	}
 }
