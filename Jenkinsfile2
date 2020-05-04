@@ -29,11 +29,11 @@ pipeline {
             causeString: 'Triggered on $branch',
             printContributedVariables: true,
             printPostContent: true,
-            silentResponse: true
-			////regexpFilterText: '$ref',
-			////regexpFilterExpression: 'refs/heads(master|dev)'
-			//regexpFilterText: '$object_kind $before $after',
-			//regexpFilterExpression: '^push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
+            silentResponse: true,
+			////regexpFilterText: '$branch',
+			////regexpFilterExpression: '(master|dev)'
+			regexpFilterText: '$object_kind $before $after',
+			regexpFilterExpression: '^push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
         )
     }
     stages {
