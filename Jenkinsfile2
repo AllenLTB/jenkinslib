@@ -25,7 +25,7 @@ pipeline {
         stage('Checkout') {
             steps{
                 script{
-                    if ( "${runOpts}" =="GitlabPush" ) {
+                    if ( "${runOps}" =="GitlabPush" ) {
                         branchName = branch - '/refs/heads/'
                     }
                     tools.PrintMes("${branchName}","green1")
