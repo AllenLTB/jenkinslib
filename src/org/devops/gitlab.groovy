@@ -3,7 +3,7 @@ package org.devops
 def gitServer = "https://gitlab-netadm.leju.com/api/v4"
 def HttpReq(reqType,reqUrl,reqBody){
 	def tools = new org.devops.tools()
-	withCredentials([string(credentialsId: 'gitlab-username_and_password', variable: 'gitlabToken')]) {
+	withCredentials([string(credentialsId: 'gitlab-tianbao1-token', variable: 'gitlabToken')]) {
 		result = httpRequest(
 					customHeaders: [[maskValue: true, name: 'PRIVATE-TOKEN', value: "${gitlabToken}"]],
 					httpMode: reqType,
