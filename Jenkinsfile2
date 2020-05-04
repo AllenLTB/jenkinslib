@@ -1,6 +1,9 @@
 @Library('jenkinslib@master')
 def build = new org.devops.build()
 def tools = new org.devops.tools()
+if ( "${runOpts}" =="GitlabPush" ) {
+	branchName = branch - '/refs/heads/'
+}
 pipeline {
     agent { node{label "master"} }
     triggers {
@@ -25,9 +28,6 @@ pipeline {
         stage('Checkout') {
             steps{
                 script{
-                    if ( "${runOpts}" =="GitlabPush" ) {
-                        branchName = branch - '/refs/heads/'
-                    }
                     tools.PrintMes("${branchName}","green1")
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
                               doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
