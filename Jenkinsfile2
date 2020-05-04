@@ -19,7 +19,8 @@ pipeline {
                 [key: "commitSha", value: "\$.checkout_sha", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
                 [key: "before", value: "\$.before", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
                 [key: "after", value: "\$.after", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
-                [key: "object_kind", value: "\$.object_kind", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
+                [key: "object_kind", value: "\$.object_kind", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
+                [key: "mailUser", value: "\$.user_email", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
             ],
         	genericRequestVariables: [
                 [key: "runOpts", regexpFilter: ""]
@@ -31,10 +32,7 @@ pipeline {
             printContributedVariables: true,
             printPostContent: true,
             silentResponse: true,
-			//regexpFilterText: '$branch',
-			//regexpFilterExpression: '(master|dev)'
 			regexpFilterText: '$object_kind $before $after',
-			//regexpFilterExpression: 'push\s.*+'
 			regexpFilterExpression: '^push\\s(?!0{40}).{40}\\s(?!0{40}).{40}$'
         )
     }
@@ -64,19 +62,21 @@ pipeline {
 			script{
 				tools.PrintMes("success","green")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
-				toemail.toemail("tianbao1@leju.com")
+				toemail.toemail("${mailUser}")
 			}
 		}
 		failure{
 			script{
 				tools.PrintMes("failed","red")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
+				toemail.toemail("${mailUser}")
 			}
 		}
 		aborted{
 			script{
 				tools.PrintMes("canceled","buie")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
+				toemail.toemail("${mailUser}")
 			}
 		}
 	}
