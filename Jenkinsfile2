@@ -13,6 +13,8 @@ pipeline {
                 [key: "branch", value: "\$.ref", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
                 [key: "buildUser", value: "\$.user_username", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
                 [key: "srcUrl", value: "\$.project.git_ssh_url", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
+                [key: "projectId", value: "\$.project.id", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
+                [key: "commitSha", value: "\$.checkout_sha", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
             ],
         	genericRequestVariables: [
                 [key: "runOpts", regexpFilter: ""]
@@ -31,7 +33,6 @@ pipeline {
             steps{
                 script{
                     tools.PrintMes("${branchName}","green")
-                    //tools.PrintMes("${currentBuild.number}","green")
                     checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
                               doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],
                               userRemoteConfigs: [[credentialsId: '4eaf63a6-52b2-4d8b-ba14-26322a3135e0',
@@ -48,4 +49,23 @@ pipeline {
             }
         }
     }
+	post {
+		success{
+			script{
+				tools.PrintMes("success")
+				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
+			}
+		}
+		failure{
+			script{
+				tools.PrintMes("failed")
+				gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
+			}
+		}
+		aborted{
+			script{
+				tools.PrintMes("canceled")
+				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
+			}
+		}
 }
