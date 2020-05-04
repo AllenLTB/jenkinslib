@@ -12,12 +12,13 @@ def HttpReq(reqType,reqUrl,reqBody){
 					ignoreSslErrors: true,
 					requestBody: reqBody,
 					//quiet: true,
-					url: "${gitServer}")
+					url: "${gitServer}/${reqUrl}")
 	}
+	return result
 }
 
 def ChangeCommitStatus(projectId,commitSha,status){
-	commitApi = "projects/${projectId}/statuses/${commitSha}?state=${status}"
+	commitApi = "/projects/${projectId}/statuses/${commitSha}?state=${status}"
 	response = HttpReq('POST',commitApi,'')
 	tools.PrintMes("Status: ${response}","green")
 	tools.PrintMes("Content: ${response}","green")
