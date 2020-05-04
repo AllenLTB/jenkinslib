@@ -46,6 +46,7 @@ pipeline {
                 script{
                     buildHome = tool "mvn-3.6.3"
                     sh "${buildHome}/bin/mvn -v"
+					sleep 30
                 }
             }
         }
