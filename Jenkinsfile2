@@ -52,19 +52,19 @@ pipeline {
 	post {
 		success{
 			script{
-				tools.PrintMes("success")
+				tools.PrintMes("success","green")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
 			}
 		}
 		failure{
 			script{
-				tools.PrintMes("failed")
+				tools.PrintMes("failed","red")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
 			}
 		}
 		aborted{
 			script{
-				tools.PrintMes("canceled")
+				tools.PrintMes("canceled","buie")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
 			}
 		}
