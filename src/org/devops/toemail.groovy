@@ -35,7 +35,7 @@ def toemail(emailUser){
 		</html>""",
 	compressLog: true,
 	attachLog: true,
-	recipientProviders: [culprits(), developers(), requester(), brokenBuildSuspects()],
+	recipientProviders: [culprits(), developers(), requestor(), brokenBuildSuspects()],
 	replyTo: 'do-not-reply@leju.com',
 	subject: "Status: ${currentBuild.result?:'SUCCESS'} - Job \'${env.JOB_NAME}: #${env.BUILD_NUMBER}\'",
 	to: emailUser
