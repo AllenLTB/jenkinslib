@@ -3,7 +3,7 @@ def build = new org.devops.build()
 def tools = new org.devops.tools()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
-	currentBuild.description = "Trigger by ${buildUser} ${branch}"
+	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
 }
 pipeline {
     agent { node{label "master"} }
