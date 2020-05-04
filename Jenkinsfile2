@@ -5,7 +5,6 @@ def gitlab = new org.devops.gitlab()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
-	sleep 30
 }
 pipeline {
     agent { node{label "master"} }
@@ -47,6 +46,7 @@ pipeline {
                 script{
                     buildHome = tool "mvn-3.6.3"
                     sh "${buildHome}/bin/mvn -v"
+					sleep 30
                 }
             }
         }
