@@ -32,7 +32,8 @@ pipeline {
             silentResponse: true,
 			////regexpFilterText: '$branch',
 			////regexpFilterExpression: '(master|dev)'
-			regexpFilterText: '$object_kind $before $after'
+			regexpFilterText: '$object_kind $before $after',
+			regexpFilterExpression: 'push\s.{40}\s.{40}'
 			////regexpFilterExpression: '^push\s(?!0{40}).{40}\s(?!0{40}).{40}$'
         )
     }
