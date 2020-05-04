@@ -64,7 +64,7 @@ pipeline {
 			script{
 				tools.PrintMes("success","green")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
-				toemail.toemail("tianbao1@leju.com,18310892118@163.com")
+				toemail.toemail("tianbao1@leju.com")
 			}
 		}
 		failure{
