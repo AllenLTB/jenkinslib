@@ -13,10 +13,9 @@ pipeline {
                 [key: "runOps", regexpFilter: ""]
             ],
             genericHeaderVariables: [
-        		[key: "runOps", regexpFilter: ""]
             ],
             token: 'demon-maven-service_PUSH',
-            causeString: "Triggered on branch",
+            causeString: "Triggered on $branch",
             printContributedVariables: true,
             printPostContent: true,
             silentResponse: true
