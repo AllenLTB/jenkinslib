@@ -10,7 +10,7 @@ pipeline {
                 [key: "srcUrl", value: "\$.project.git_ssh_url", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
             ],
         	genericRequestVariables: [
-                [key: "runOps", regexpFilter: ""]
+                [key: "runOpts", regexpFilter: ""]
             ],
             genericHeaderVariables: [
             ],
@@ -25,7 +25,7 @@ pipeline {
         stage('Checkout') {
             steps{
                 script{
-                    if ( "${runOps}" =="GitlabPush" ) {
+                    if ( "${runOpts}" =="GitlabPush" ) {
                         branchName = branch - '/refs/heads/'
                     }
                     tools.PrintMes("${branchName}","green1")
