@@ -21,7 +21,7 @@ def ChangeCommitStatus(projectId,commitSha,status){
 	def tools = new org.devops.tools()
 	commitApi = "projects/${projectId}/statuses/${commitSha}?state=${status}"
 	response = HttpReq('POST',commitApi,'')
-	tools.PrintMes("Status: ${response}","green")
-	tools.PrintMes("Content: ${response}","green")
+	tools.PrintMes("Status: ${response.status}","green")
+	tools.PrintMes("Content: ${response.content}","green")
 	return response
 }
