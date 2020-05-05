@@ -8,6 +8,7 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
 			-Dsonar.host.url=${SONAR_HOST_URL} \
 			-Dsonar.projectKey="${projectNmae}" \
 			-Dsonar.projectName="${projectNmae}" \
+			-Dsonar.projectVersion="${sonarData}" \
 			-Dsonar.sources="${projectPath}" \
 			-Dsonar.language="${projectLanguage}" \
         	-Dsonar.sourceEncoding="${Coding}" \
