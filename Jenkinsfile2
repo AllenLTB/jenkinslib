@@ -3,6 +3,7 @@ def build = new org.devops.build()
 def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
+def sonarqube = new org.devops.sonarqube()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
@@ -61,6 +62,9 @@ pipeline {
                 }
             }
         }
+		stage('CodeScan'){
+			sonarqube.SonarScan("demon-maven-service1","demon-maven-service1","src","java,"Sonar-Server","java")
+		}
     }
 	post {
 		success{
