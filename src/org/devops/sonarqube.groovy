@@ -16,4 +16,5 @@ def SonarScan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Co
         	-Dsonar.login=${SONAR_AUTH_TOKEN}
         	"${extraAgruments}"
 		"""
+	}
 }
