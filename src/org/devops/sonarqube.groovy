@@ -13,7 +13,7 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
 			-Dsonar.language="${projectLanguage}" \
         	-Dsonar.sourceEncoding="${Coding}" \
         	-Dsonar.projectVersion="${sonarData}" \
-        	-Dsonar.login="${SONAR_AUTH_TOKEN}" "${extraAgruments}"
+        	-Dsonar.login="${SONAR_AUTH_TOKEN}" ${extraAgruments}
 		"""
 	}
 }
