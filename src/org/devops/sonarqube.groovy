@@ -3,7 +3,7 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
 	def scannerHome = "/usr/local/sonarscanner"
 	//def sonarServer = "https::/sonarqube-netadm.leju.com"
 	def sonarData = sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim()
-	withSonarQubeEnv('{SonarServer') {
+	withSonarQubeEnv('SonarServer') {
 		sh """
 			${scannerHome}/bin/sonar-scanner \
 			-Dsonar.host.url=${SONAR_HOST_URL} \
