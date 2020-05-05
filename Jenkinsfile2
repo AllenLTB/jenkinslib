@@ -9,6 +9,11 @@ if ( "${runOpts}" =="GitlabPush" ) {
 }
 pipeline {
     agent { node{label "master"} }
+	options {
+		timeout(time: 1, unit: 'HOURS') 
+		timestamps()
+		buildDiscarder(logRotator(numToKeepStr: '10'))
+	}
     triggers {
         GenericTrigger(
         	genericVariables: [
