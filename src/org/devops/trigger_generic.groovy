@@ -27,3 +27,9 @@ def GenTrigger(tokenValue) {
 	    regexpFilterExpression: '^push\\s(?!0{40}).{40}\\s(?!0{40}).{40}$'
 	)
 }
+def aaa(){
+	if ( "${runOpts}" =="GitlabPush" ) {
+		branchName = branch - '/refs/heads/'
+		currentBuild.description = "Trigger by ${buildUser} - ${branch}"
+	}
+}
