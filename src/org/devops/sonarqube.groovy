@@ -13,7 +13,8 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
         	-Dsonar.sourceEncoding="${Coding}" \
         	-Dsonar.projectVersion="${sonarData}" \
         	-Dsonar.login=${SONAR_AUTH_TOKEN} \
-			"${extraAgruments}"
+			-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports
 		"""
 	}
+			//"${extraAgruments}"
 }
