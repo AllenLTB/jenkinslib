@@ -63,7 +63,7 @@ pipeline {
             }
         }
 		stage('CodeScan'){
-			sonarqube.SonarScan("demon-maven-service1","demon-maven-service1","src","java,"Sonar-Server","java")
+			sonarqube.SonarScan("demon-maven-service1","demon-maven-service1","src","java,"Sonar-Server")
 		}
     }
 	post {
