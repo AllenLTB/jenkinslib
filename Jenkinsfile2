@@ -7,6 +7,7 @@ def sonar = new org.devops.sonarqube()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
+	gitlab.ChangeCommitStatus(projectId,commitSha,"running")
 }
 pipeline {
     agent { node{label "scanner"} }
