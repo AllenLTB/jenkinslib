@@ -9,7 +9,7 @@ if ( "${runOpts}" =="GitlabPush" ) {
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
 }
 pipeline {
-    agent { node{label "master"} }
+    agent { node{label "scanner"} }
 	options {
 		timeout(time: 1, unit: 'HOURS') 
 		timestamps()
@@ -66,7 +66,7 @@ pipeline {
 			steps {
 				script{
 					tools.PrintMes("代码扫描","green")
-					//sonar.SonarScan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server')
+					sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server')
 				}
 			}
 		}

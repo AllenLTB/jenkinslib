@@ -1,5 +1,5 @@
 package org.devops
-def SonarScan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding){
+def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding){
 	def scannerHome = "/usr/local/sonarscanner"
 	//def sonarServer = "https::/sonarqube-netadm.leju.com"
 	def sonarData = sh(script: "data +%Y%m%d%H%M%S", returnStdout: true).trim()
