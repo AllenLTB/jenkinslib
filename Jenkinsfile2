@@ -63,7 +63,12 @@ pipeline {
             }
         }
 		stage('CodeScan'){
-			sonarqube.SonarScan("demon-maven-service1","demon-maven-service1","src","java,"Sonar-Server")
+			steps {
+				script{
+					tools.PrintMes("代码扫描","green")
+					sonarqube.SonarScan("${JOB_NAME}","${JOB_NAME}","src","java,"Sonar-Server")
+				}
+			}
 		}
     }
 	post {
