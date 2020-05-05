@@ -4,6 +4,7 @@ def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
+org/devops/sonarqube
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
@@ -69,7 +70,8 @@ pipeline {
 			steps {
 				script{
 					tools.PrintMes("代码扫描","green")
-					sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server')
+					sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server','UTF-8'
+							'-Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports')
 				}
 			}
 		}
