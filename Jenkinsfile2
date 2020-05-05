@@ -59,7 +59,7 @@ pipeline {
                 script{
                     buildHome = tool "mvn-3.6.3"
                     sh """
-						export PATH=/usr/java/jdk1.8.0_212-amd64:$PATH
+						export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
 						${buildHome}/bin/mvn clean install
 					"""
                 }
