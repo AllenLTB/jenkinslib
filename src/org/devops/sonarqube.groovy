@@ -5,7 +5,7 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
 	withSonarQubeEnv("${SonarServer}") {
 		sh """
 			${scannerHome}/bin/sonar-scanner \
-			-Dsonar.host.url=${SONAR_HOST_URL} \
+			-Dsonar.host.url="${SONAR_HOST_URL}" \
 			-Dsonar.projectKey="${projectNmae}" \
 			-Dsonar.projectName="${projectNmae}" \
 			-Dsonar.projectVersion="${sonarData}" \
@@ -13,9 +13,9 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
 			-Dsonar.language="${projectLanguage}" \
         	-Dsonar.sourceEncoding="${Coding}" \
         	-Dsonar.projectVersion="${sonarData}" \
-        	-Dsonar.login=${SONAR_AUTH_TOKEN} \
-			-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports
+        	-Dsonar.login="${SONAR_AUTH_TOKEN}" ${extraAgruments}
 		"""
 	}
+			//-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports
 			//"${extraAgruments}"
 }
