@@ -10,9 +10,6 @@ if ( "${runOpts}" =="GitlabPush" ) {
 }
 pipeline {
     agent { node{label "scanner"} }
-	tools {
-		jdk 'jdk8'
-	}
 	options {
 		timeout(time: 1, unit: 'HOURS') 
 		timestamps()
@@ -61,7 +58,10 @@ pipeline {
             steps{
                 script{
                     buildHome = tool "mvn-3.6.3"
-                    sh "${buildHome}/bin/mvn clean install"
+                    sh """
+						export PATH=/usr/java/jdk1.8.0_212-amd64:$PATH
+						${buildHome}/bin/mvn clean install
+					"""
                 }
             }
         }
@@ -69,7 +69,6 @@ pipeline {
 			steps {
 				script{
 					tools.PrintMes("代码扫描","green")
-					sh "printenv"
 					sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server')
 				}
 			}
