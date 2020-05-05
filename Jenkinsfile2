@@ -17,8 +17,8 @@ pipeline {
 		timestamps()
 		buildDiscarder(logRotator(numToKeepStr: '10'))
 	}
-    triggers {
-		trigger_generic.GenTrigger('demon-maven-service_PUSH')
+	trigger_generic.GenTrigger('demon-maven-service_PUSH')
+    //triggers {
         //GenericTrigger(
         //	genericVariables: [
         //        [key: "branch", value: "\$.ref", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
@@ -44,7 +44,7 @@ pipeline {
 		//	regexpFilterText: '$object_kind $before $after',
 		//	regexpFilterExpression: '^push\\s(?!0{40}).{40}\\s(?!0{40}).{40}$'
         //)
-    }
+    //}
     stages {
         stage('Checkout') {
             steps{
