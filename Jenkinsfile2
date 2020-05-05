@@ -10,6 +10,9 @@ if ( "${runOpts}" =="GitlabPush" ) {
 }
 pipeline {
     agent { node{label "scanner"} }
+	tools {
+		jdk 'jdk8'
+	}
 	options {
 		timeout(time: 1, unit: 'HOURS') 
 		timestamps()
@@ -66,6 +69,7 @@ pipeline {
 			steps {
 				script{
 					tools.PrintMes("代码扫描","green")
+					sh "printenv"
 					sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server')
 				}
 			}
