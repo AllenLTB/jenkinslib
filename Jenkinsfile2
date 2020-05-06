@@ -83,9 +83,9 @@ pipeline {
 							error "${JOB_NAME}项目创建失败"
 						}
 					}
-					tools.PrintMes("代码扫描","green")
-					sonar.Scan("${JOB_NAME}","${JOB_NAME}",'src','java','Sonar-Server','UTF-8', 
-					'-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports')
+					//tools.PrintMes("代码扫描","green")
+					//sonar.Scan("${JOB_NAME}","${JOB_NAME}",'src','java','Sonar-Server','UTF-8', 
+					//'-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports')
 				}
 			}
 		}
