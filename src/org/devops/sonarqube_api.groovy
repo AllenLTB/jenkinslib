@@ -44,7 +44,7 @@ def CreateProject(projectName){
 	if (result == "false"){
 		println("${projectName}项目创建失败")
 		return "false"
-	else {
+	} else {
 		println("${projectName}项目创建成功")
 	}
 }
