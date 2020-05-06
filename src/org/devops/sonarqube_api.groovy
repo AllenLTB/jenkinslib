@@ -56,7 +56,7 @@ def SearchQualityProfile(lang,qualityProfileName){
 	apiUrl = "qualityprofiles/search?language=${lang}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
-	result = response["profiles"]["name"]
+	result = response["profiles"][0]["name"]
 	result = result.toString()
 	println(result)
 	if (result.toString() == "${qualityProfileName}" ) {
