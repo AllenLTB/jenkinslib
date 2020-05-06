@@ -87,6 +87,8 @@ def ShowQualityGate(gateName){
 	response = readJSON text: """${response.content}"""
     result = response["id"]
 	result2 = response["errors"]
+	println(result2)
+	//if (result)
 	return result
 }
 
