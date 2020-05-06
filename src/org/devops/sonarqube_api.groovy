@@ -29,6 +29,7 @@ def SearchProject(projectName){
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	result = response["paging"]["total"]
+	println(result)
 	if (result.toString() == "0") {
 		return 'false'
 	} else {
