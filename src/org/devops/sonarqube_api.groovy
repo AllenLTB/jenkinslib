@@ -92,7 +92,7 @@ def ShowQualityGate(gateName){
 //创建质量阈
 def CreateQualityGate(gateName){
 	gateName = gateName.split('-')[0]
-	apiUrl = "api/qualitygates/create?name=${gateName}"
+	apiUrl = "qualitygates/create?name=${gateName}"
 	response = HttpReq("POST",apiUrl,'')
 }
 
