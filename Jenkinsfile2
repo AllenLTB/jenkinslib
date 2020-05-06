@@ -5,10 +5,15 @@ def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
 def sonar_status_api = new org.devops.sonarqube_status_api()
-if ( "${runOpts}" == "GitlabPush" ) {
-	branchName = branch - '/refs/heads/'
-	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
-	gitlab.ChangeCommitStatus(projectId,commitSha,"running")
+if ("${runOpts}") {
+	if ( "${runOpts}" == "GitlabPush" ) {
+		branchName = branch - '/refs/heads/'
+		currentBuild.description = "Trigger by ${buildUser} - ${branch}"
+		gitlab.ChangeCommitStatus(projectId,commitSha,"running")
+	}
+} else {
+	runOpts = ''
+	mailUser = '18310892118@163.com'
 }
 pipeline {
     agent { node{label "scanner"} }
@@ -100,21 +105,27 @@ pipeline {
 		success{
 			script{
 				tools.PrintMes("success","green")
-				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
+				if ( "${runOpts}" == "GitlabPush" ) {
+					gitlab.ChangeCommitStatus(projectId,commitSha,"success")
+				}
 				toemail.toemail("","${mailUser}")
 			}
 		}
 		failure{
 			script{
 				tools.PrintMes("failed","red")
-				gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
+				if ( "${runOpts}" == "GitlabPush" ) {
+					gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
+				}
 				toemail.toemail("","${mailUser}")
 			}
 		}
 		aborted{
 			script{
 				tools.PrintMes("canceled","buie")
-				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
+				if ( "${runOpts}" == "GitlabPush" ) {
+					gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
+				}
 				toemail.toemail("","${mailUser}")
 			}
 		}
