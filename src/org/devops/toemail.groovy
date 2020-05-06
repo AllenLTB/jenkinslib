@@ -2,7 +2,7 @@ package org.devops
 def toemail(email_body,emailUser){
 	if("${email_body}" == ''){
 		email_body = "各位同事，大家好，以下为${env.JOB_NAME}项目构建信息"
-	{
+	}
 	emailext body: """
 		<!DOCTYPE html>
 		<html>
