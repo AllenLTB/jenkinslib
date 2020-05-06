@@ -59,12 +59,11 @@ def SearchQualityProfile(lang,qualityProfileName){
 	result = response["profiles"][0]
 	println(result)
 	//if (result.toString() == "${qualityProfileName}" ) {
-	if (result.toString() == "" ) {
-		error "123333333"
+	if (result.toString() == null ) {
+		return 'true'
+	} else {
 		println("质量配置${qualityProfileName}已存在")
 		return 'false'
-	} else {
-		return 'true'
 	}
 }
 
