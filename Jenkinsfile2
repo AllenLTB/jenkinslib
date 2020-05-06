@@ -5,7 +5,7 @@ def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
 def sonar_status_api = new org.devops.sonarqube_status_api()
-//def runOpts
+def runOpts
 //def mailUser = '18310892118@163.com'
 if ( "${runOpts}" == "GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
@@ -14,7 +14,7 @@ if ( "${runOpts}" == "GitlabPush" ) {
 } else {
 	branchName = 'master'
 	srcUrl = 'ssh://git@gitlab-netadm.leju.com:2223/test/simple-java-maven-app.git'
-	mailUser = 'mailUser'
+	mailUser = '18310892118@163.com'
 }
 
 pipeline {
