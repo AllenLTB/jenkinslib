@@ -4,6 +4,7 @@ def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
+def sonar_status_api = new org.devops.sonarqube_status_api()
 if ( "${runOpts}" =="GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
@@ -78,12 +79,20 @@ pipeline {
 		stage('Quality Gate') {
 			steps {
 				script {
-					def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-					println(qg)
-					if (qg.status != 'OK') {
-						error "Pipeline aborted due to quality gate failure: ${qg.status}"
-					} else if (qg.status == 'OK'){
-						tools.PrintMes("quality gate: ${qg.status}","green")
+					//def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+					//println(qg)
+					//if (qg.status != 'OK') {
+					//	error "Pipeline aborted due to quality gate failure: ${qg.status}"
+					//} else if (qg.status == 'OK'){
+					//	tools.PrintMes("quality gate: ${qg.status}","green")
+					//}
+					tools.PrintMes("获取扫描结果","green")
+					result = sonar_status_api.GetProjectStatus("simple-java-maven-app")
+					println(result)
+					if(result.toString() == "ERROR"){
+						error "代码质量阈错误！请及时修复！"
+					} else {
+						print(result)
 					}
 				}
 			}
