@@ -9,7 +9,7 @@ def HttpReq(reqType,reqUrl,reqBody){
         ignoreSslErrors: true,
         requestBody: reqBody,
     	//quiet: true,
-        url: "${sonarServer}/{reqUrl}"
+        url: "${sonarServer}/${reqUrl}"
     return result
 }
 
