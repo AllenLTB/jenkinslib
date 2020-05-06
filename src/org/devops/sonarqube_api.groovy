@@ -59,10 +59,9 @@ def SearchQualityProfile(lang,qualityProfileName){
 	result = response["profiles"][0]
 	println(result)
 	if (result.toString() == 'null' ) {
-		return 'true'
-	} else {
-		println("质量配置${qualityProfileName}已存在")
 		return 'false'
+	} else {
+		return 'true'
 	}
 }
 
@@ -71,6 +70,12 @@ def CreateQualityProfile(lang,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
 	apiUrl = "qualityprofiles/create?language=${lang}&name=${qualityProfileName}"
 	response = HttpReq("POST",apiUrl,'')
+	response SearchQualityProfile(lang,qualityProfileName)
+	if (response == 'false') {
+		println("${qualityProfileName}质量配置创建失败")
+	} else {
+		println("${qualityProfileName}质量配置创建成")
+	}
 }
 
 //将项目与质量配置关联
