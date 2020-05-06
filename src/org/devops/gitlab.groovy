@@ -25,3 +25,11 @@ def ChangeCommitStatus(projectId,commitSha,status){
 	tools.PrintMes("Content: ${response.content}","green")
 	return response
 }
+
+def runOptValue(){
+	if ( "${runOpts}" == "GitlabPush" ) {
+		branchName = branch - '/refs/heads/'
+		currentBuild.description = "Trigger by ${buildUser} - ${branch}"
+		gitlab.ChangeCommitStatus(projectId,commitSha,"running")
+	}
+}
