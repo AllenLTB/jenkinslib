@@ -108,14 +108,14 @@ pipeline {
 			script{
 				tools.PrintMes("failed","red")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
-				toemail.toemail("${mailUser}")
+				toemail.toemail("","${mailUser}")
 			}
 		}
 		aborted{
 			script{
 				tools.PrintMes("canceled","buie")
 				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
-				toemail.toemail("${mailUser}")
+				toemail.toemail("","${mailUser}")
 			}
 		}
 	}
