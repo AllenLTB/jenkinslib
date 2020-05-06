@@ -54,7 +54,7 @@ def SearchQualityProfile(lang,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
 	apiUrl = "qualityprofiles/search?language=${lang}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("GET",apiUrl,'')
-	response = readJSON text: """${sponse.content}"""
+	response = readJSON text: """${response.content}"""
 	result = response["profiles"][name]
 	if (result.toString() == "${qualityProfileName}" ) {
 		println("质量配置${qualityProfileName}已存在")
