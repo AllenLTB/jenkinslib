@@ -84,7 +84,7 @@ pipeline {
 						}
 					}
 					
-					CreateQualityProfile("java","${JOB_NAME}","${JOB_NAME}")
+					sonarapi.CreateQualityProfile("java","${JOB_NAME}","${JOB_NAME}")
 
 
 
