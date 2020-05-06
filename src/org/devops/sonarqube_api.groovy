@@ -29,7 +29,6 @@ def SearchProject(projectName){
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	result = response["paging"]["total"]
-	println(result)
 	if (result.toString() == "0") {
 		return 'false'
 	} else {
@@ -57,7 +56,6 @@ def SearchQualityProfile(lang,qualityProfileName){
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	result = response["profiles"][0]["name"]
-	result = result.toString()
 	println(result)
 	if (result.toString() == "${qualityProfileName}" ) {
 		println("质量配置${qualityProfileName}已存在")
