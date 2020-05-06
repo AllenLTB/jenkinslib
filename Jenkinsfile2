@@ -83,13 +83,18 @@ pipeline {
 							error "${JOB_NAME}项目创建失败"
 						}
 					}
-					
-					//tools.PrintMes("创建质量配置","green")
-					//sonarapi.CreateQualityProfile("java","${JOB_NAME}")
+
+					tools.PrintMes("搜索质量配置","green")
+					result = sonarapi.SearchQualityProfile("java","${JOB_NAME}")
+					if (result == "true") {
+						tools.PrintMes("创建质量配置","green")
+						result = sonarapi.CreateQualityProfile("java","${JOB_NAME}")
+					}
+						
 
 					tools.PrintMes("关联项目与质量配置","green")
-					//sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"${JOB_NAME}")
-					sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"Sonar%20way")
+					sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"${JOB_NAME}")
+					//sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"Sonar%20way")
 
 
 

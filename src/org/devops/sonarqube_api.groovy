@@ -49,6 +49,21 @@ def CreateProject(projectName){
 	}
 }
 
+//搜索质量配置
+def SearchQualityProfile(lang,qualityProfileName){
+	qualityProfileName = qualityProfileName.split('-')[0]
+	apiUrl = "api/qualityprofiles/search?language=${lang}&qualityProfile=${qualityProfileName}"
+	response = HttpReq("GET",apiUrl,'')
+	response = readJSON text: """${sponse.content}"""
+	result = response["profiles"][name]
+	if (result.toString() == "${qualityProfileName}" ) {
+		println("质量配置${qualityProfileName}已存在")
+		return 'false'
+	} else {
+		return 'true'
+	}
+}
+
 //创建质量配置
 def CreateQualityProfile(lang,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
