@@ -36,7 +36,6 @@ def SearchProject(projectName){
 	}
 }
 	
-
 //创建项目
 def CreateProject(projectName){
 	apiUrl = "projects/create?name=${projectName}&project=${projectName}"
@@ -58,7 +57,7 @@ def CreateQualityProfile(lang,qualityProfileName){
 }
 
 //将项目与质量配置关联
-def projectAssociateQP(lang,projectName,qualityProfileName){
+def ProjectAssociateQP(lang,projectName,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
 	apiUrl = "qualityprofiles/add_project?language=${lang}&project=${projectName}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("POST",apiUrl,'')
