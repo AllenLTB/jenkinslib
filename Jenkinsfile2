@@ -72,15 +72,15 @@ pipeline {
 			steps {
 				script{
 					tools.PrintMes("搜索项目","green")
-					result = sonarapi.SearchProject("${projectName}")
+					result = sonarapi.SearchProject("${JOB_NAME}")
 					if (result == "true"){
-						println("${projectName}项目已以存在")
+						println("${JOB_NAME}项目已以存在")
 					} else {
-						println("未找到${projectName}项目")
-						tools.PrintMes("创建${projectName}项目","green")
-						result = sonarapi.CreateProject("${projectName}")
+						println("未找到${JOB_NAME}项目")
+						tools.PrintMes("创建${JOB_NAME}项目","green")
+						result = sonarapi.CreateProject("${JOB_NAME}")
 						if (result == "false"){
-							error "${projectName}项目创建失败"
+							error "${JOB_NAME}项目创建失败"
 						}
 					}
 					tools.PrintMes("代码扫描","green")
