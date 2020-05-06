@@ -80,19 +80,18 @@ pipeline {
 		stage('Quality Gate') {
 			steps {
 				script {
-					def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-					//println(qg)
-					if (qg.status != 'OK') {
-						error "Pipeline aborted due to quality gate failure: ${qg.status}"
-					} else if (qg.status == 'OK'){
-						tools.PrintMes("quality gate: ${qg.status}","green")
-					}
-					//tools.PrintMes("获取扫描结果","green")
-					//result = sonar_status_api.GetProjectStatus("${JOB_NAME}")
-					//println(result)
-					//if(result.toString() == "ERROR"){
-					//	error "代码质量阈错误！请及时修复！"
+					//def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+					//if (qg.status != 'OK') {
+					//	error "Pipeline aborted due to quality gate failure: ${qg.status}"
+					//} else if (qg.status == 'OK'){
+					//	tools.PrintMes("quality gate: ${qg.status}","green")
 					//}
+					tools.PrintMes("获取扫描结果","green")
+					result = sonar_status_api.GetProjectStatus("${JOB_NAME}")
+					println(result)
+					if(result.toString() == "ERROR"){
+						error "代码质量阈错误！请及时修复！"
+					}
 				}
 			}
 		}
