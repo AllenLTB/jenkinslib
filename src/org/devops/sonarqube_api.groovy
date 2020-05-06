@@ -62,6 +62,7 @@ def SearchQualityProfile(lang,qualityProfileName){
 		return 'false'
 	} else {
 		return 'true'
+		println("${qualityProfileName}质量配置已存在")
 	}
 }
 

@@ -89,8 +89,6 @@ pipeline {
 					if (result == "false") {
 						tools.PrintMes("创建质量配置","green")
 						result = sonarapi.CreateQualityProfile("java","${JOB_NAME}")
-					} else {
-						println("${qualityProfileName}质量配置已存在")
 					}
 						
 
