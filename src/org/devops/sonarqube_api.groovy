@@ -27,6 +27,7 @@ def SearchProject(projectName){
 	apiUrl = "projects/search?projects=${projectName}"
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
+	result = response["paging"]["total"]
 	if (result.toString() == "0") {
 		return 'false'
 	} else {
@@ -36,6 +37,7 @@ def SearchProject(projectName){
 	
 
 //创建项目
+
 def CreateProject(projectName){
 	apiUrl = "projects/create?name=${projectName}&project=${projectName}"
 	response = HttpReq("POST",apiUrl,'')
