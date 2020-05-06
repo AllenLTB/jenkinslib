@@ -75,7 +75,7 @@ pipeline {
 					result = sonarapi.SearchProject("${projectName}")
 					if (result == "true"){
 						println("${projectName}项目已以存在")
-					else {
+					} else {
 						println("未找到${projectName}项目")
 						tools.PrintMes("创建${projectName}项目","green")
 						result = sonarapi.CreateProject("${projectName}")
