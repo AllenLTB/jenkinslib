@@ -3,7 +3,8 @@ package org.devops
 def HttpReq(reqType,reqUrl,reqBody){
     def sonarServer = "http://sonarqube-netadm.leju.com/api"
     reuslt = httpRequest authentication: 'sonarqube-tianbao1',
-        httpMode: "APPLICATION_JSON",
+		httpMode: reqType,
+        contentType: "APPLICATION_JSON",
         consoleLogResponseBody: true,
         ignoreSslErrors: true,
         requestBody: reqBody,
