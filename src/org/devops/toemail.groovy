@@ -1,5 +1,8 @@
 package org.devops
-def toemail(emailUser){
+def toemail(email_body,emailUser){
+	if("${email_body}" == ''){
+		email_body = "各位同事，大家好，以下为${env.JOB_NAME}项目构建信息"
+	{
 	emailext body: """
 		<!DOCTYPE html>
 		<html>
@@ -10,7 +13,7 @@ def toemail(emailUser){
 		<body leftmargin="8" marginwidth="0" topmargin="8" marginheight="4" offset="0">
 			<table width="95%" cellpadding="0" cellspacing="0"  style="font-size: 11pt; font-family: Tahoma, Arial, Helvetica, sans-serif">
 				<tr>
-					<td>各位同事，大家好，以下为${env.JOB_NAME}项目构建信息</td>
+					<td>${email_body}</td>
 				</tr>
 				<tr>
 					<td><br />
