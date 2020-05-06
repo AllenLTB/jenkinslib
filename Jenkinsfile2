@@ -71,7 +71,8 @@ pipeline {
 			steps {
 				script{
 					tools.PrintMes("代码扫描","green")
-					sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server','UTF-8', 
+					//sonar.Scan('simple-java-maven-app','simple-java-maven-app','src','java','Sonar-Server','UTF-8', 
+					sonar.Scan("${JOB_NAME}","${JOB_NAME}",'src','java','Sonar-Server','UTF-8', 
 					'-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports')
 				}
 			}
@@ -87,12 +88,10 @@ pipeline {
 					//	tools.PrintMes("quality gate: ${qg.status}","green")
 					//}
 					tools.PrintMes("获取扫描结果","green")
-					result = sonar_status_api.GetProjectStatus("simple-java-maven-app")
+					result = sonar_status_api.GetProjectStatus("${JOB_NAME}")
 					println(result)
 					if(result.toString() == "ERROR"){
 						error "代码质量阈错误！请及时修复！"
-					} else {
-						print(result)
 					}
 				}
 			}
