@@ -37,11 +37,9 @@ def SearchProject(projectName){
 	
 
 //创建项目
-
 def CreateProject(projectName){
 	apiUrl = "projects/create?name=${projectName}&project=${projectName}"
 	response = HttpReq("POST",apiUrl,'')
-	println(response)
 	result = SearchProject("${projectName}")
 	if (result == "false"){
 		println("${projectName}项目创建失败")
@@ -50,4 +48,16 @@ def CreateProject(projectName){
 		println("${projectName}项目创建成功")
 	}
 }
+
+//创建质量规则
+def CreateQualityProfile(lang,projectName,qualityProfileName){
+	qualityProfileName = qualityProfileName.split('-')
+	apiUrl = "api/qualityprofiles/add_project?language=${lang}&projectName=${projectName}&qualityProfile=${qualityProfileName}"
+	response = HttpReq("POST",apiUrl,'')
+}
+
+
+//创建质量阈
+
+//让项目使用指定质量规则和质量阈
 
