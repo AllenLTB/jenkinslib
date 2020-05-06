@@ -86,14 +86,12 @@ def ShowQualityGate(gateName){
 	response = HttpReq("GET",apiUrl,"")
 	response = readJSON text: """${response.content}"""
     result = response["id"]
-	result2 = response["errors"]
-	println(result2)
-	//if (result)
 	return result
 }
 
 //创建质量阈
 def CreateQualityGate(gateName){
+	gateName = gateName.split('-')[0]
 	apiUrl = "api/qualitygates/create?name=${gateName}"
 	response = HttpReq("POST",apiUrl,'')
 }
