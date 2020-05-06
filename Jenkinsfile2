@@ -84,8 +84,8 @@ pipeline {
 						}
 					}
 					
-					tools.PrintMes("创建质量配置","green")
-					sonarapi.CreateQualityProfile("java","${JOB_NAME}")
+					//tools.PrintMes("创建质量配置","green")
+					//sonarapi.CreateQualityProfile("java","${JOB_NAME}")
 
 					tools.PrintMes("关联项目与质量配置","green")
 					//sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"${JOB_NAME}")
