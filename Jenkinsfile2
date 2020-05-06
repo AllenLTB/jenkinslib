@@ -11,7 +11,12 @@ if ( "${runOpts}" == "GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
 	gitlab.ChangeCommitStatus(projectId,commitSha,"running")
+} else {
+	branchName = 'master'
+	srcUrl = 'ssh://git@gitlab-netadm.leju.com:2223/test/simple-java-maven-app.git'
+	mailUser = 'mailUser'
 }
+
 pipeline {
     agent { node{label "scanner"} }
 	options {
