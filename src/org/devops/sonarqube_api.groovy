@@ -26,7 +26,7 @@ def GetProjectStatus(projectName){
 def SearchProject(projectName){
 	apiUrl = "projects/search?projects=${projectName}"
 	response = HttpReq("GET",apiUrl,'')
-	response = readJson text: """${response.content}"""
+	response = readJSON text: """${response.content}"""
 	if (result.toString() == "0") {
 		return 'false'
 	} else {
