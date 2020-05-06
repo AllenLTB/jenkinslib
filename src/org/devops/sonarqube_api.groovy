@@ -50,8 +50,15 @@ def CreateProject(projectName){
 	}
 }
 
-//创建质量规则
-def CreateQualityProfile(lang,projectName,qualityProfileName){
+//创建质量配置
+def CreateQualityProfile(lang,qualityProfileName){
+	qualityProfileName = qualityProfileName.split('-')[0]
+	apiUrl = "qualityprofiles/create?language=${lang}&name=${qualityProfileName}"
+	response = HttpReq("POST",apiUrl,'')
+}
+
+//将项目与质量配置关联
+def projectAssociateQP(lang,projectName,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
 	apiUrl = "qualityprofiles/add_project?language=${lang}&project=${projectName}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("POST",apiUrl,'')
