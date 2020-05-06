@@ -51,7 +51,7 @@ def CreateProject(projectName){
 
 //创建质量规则
 def CreateQualityProfile(lang,projectName,qualityProfileName){
-	qualityProfileName = qualityProfileName.split('-')
+	qualityProfileName = qualityProfileName.split('-')[0]
 	apiUrl = "api/qualityprofiles/add_project?language=${lang}&projectName=${projectName}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("POST",apiUrl,'')
 }
