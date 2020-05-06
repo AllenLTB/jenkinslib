@@ -13,12 +13,39 @@ def HttpReq(reqType,reqUrl,reqBody){
     return result
 }
 
+//获取扫描结果
 def GetProjectStatus(projectName){
     apiUrl = "project_branches/list?project=${projectName}"
     response = HttpReq("GET",apiUrl,'')
     response = readJSON text: """${response.content}"""
-	//println(${response.content})
-	//println(response)
     result = response["branches"][0]["status"]["qualityGateStatus"]
     return result
 }
+
+//搜索项目
+def SearchProject(projectName){
+	apiUrl = "projects/search?projects=${projectName}"
+	response = HttpReq("GET",apiUrl,'')
+	response = readJson text: """${response.content}"""
+	if (result.toString() == "0") {
+		return 'false'
+	} else {
+		return 'true'
+	}
+}
+	
+
+//创建项目
+def CreateProject(projectName){
+	apiUrl = "projects/create?name=${projectName}&project=${projectName}"
+	response = HttpReq("POST",apiUrl,'')
+	println(response)
+	return = SearchProject("${projectName}")
+	if (result == "false"){
+		println("${projectName}项目创建失败")
+		return "false"
+	else {
+		println("${projectName}项目创建成功")
+	}
+}
+
