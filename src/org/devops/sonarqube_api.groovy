@@ -1,5 +1,6 @@
 package org.devops
 
+//HTTP封装
 def HttpReq(reqType,reqUrl,reqBody){
     def sonarServer = "https://sonarqube-netadm.leju.com/api"
     result = httpRequest authentication: 'sonarqube-tianbao1',
@@ -52,7 +53,7 @@ def CreateProject(projectName){
 //创建质量规则
 def CreateQualityProfile(lang,projectName,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
-	apiUrl = "api/qualityprofiles/add_project?language=${lang}&projectName=${projectName}&qualityProfile=${qualityProfileName}"
+	apiUrl = "qualityprofiles/add_project?language=${lang}&projectName=${projectName}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("POST",apiUrl,'')
 }
 
