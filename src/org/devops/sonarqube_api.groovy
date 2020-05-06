@@ -88,6 +88,7 @@ def ProjectAssociateQP(lang,projectName,qualityProfileName){
 
 //搜索质量阈
 def ShowQualityGate(gateName){
+	gateName = gateName.split('-')[0]
 	apiUrl = "qualitygates/show?name=${gateName}"
 	response = HttpReq("GET",apiUrl,"")
 	response = readJSON text: """${response.content}"""
