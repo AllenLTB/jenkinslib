@@ -40,7 +40,7 @@ def CreateProject(projectName){
 	apiUrl = "projects/create?name=${projectName}&project=${projectName}"
 	response = HttpReq("POST",apiUrl,'')
 	println(response)
-	return = SearchProject("${projectName}")
+	result = SearchProject("${projectName}")
 	if (result == "false"){
 		println("${projectName}项目创建失败")
 		return "false"
