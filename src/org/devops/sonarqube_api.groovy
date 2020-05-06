@@ -100,8 +100,7 @@ def CreateQualityGate(gateName){
 def ProjectAssociateQG(gateName,projectKey){
 	gateName = gateName.split('-')[0]
 	gateId = ShowQualityGate(gateName)
-	apiUrl = "api/qualitygates/select?gateId=${gateId}&projectKey=${projectKey}"
+	apiUrl = "qualitygates/select?gateId=${gateId}&projectKey=${projectKey}"
 	response = HttpReq("POST","apiUrl","")
-	//response = HttpReq("POST",apiUrl,'')
 }
 
