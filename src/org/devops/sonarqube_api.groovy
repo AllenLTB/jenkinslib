@@ -61,8 +61,8 @@ def SearchQualityProfile(lang,qualityProfileName){
 	if (result.toString() == 'null' ) {
 		return 'false'
 	} else {
-		return 'true'
 		println("${qualityProfileName}质量配置已存在")
+		return 'true'
 	}
 }
 
