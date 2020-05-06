@@ -29,6 +29,7 @@ def SearchProject(projectName){
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	result = response["paging"]["total"]
+	println("result")
 	if (result.toString() == "0") {
 		return 'false'
 	} else {
@@ -55,10 +56,8 @@ def SearchQualityProfile(lang,qualityProfileName){
 	apiUrl = "qualityprofiles/search?language=${lang}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${response.content}"""
-	//result = response["profiles"][0]["name"]
 	result = response["profiles"][0]
 	println(result)
-	//if (result.toString() == "${qualityProfileName}" ) {
 	if (result.toString() == 'null' ) {
 		return 'true'
 	} else {
@@ -81,8 +80,27 @@ def ProjectAssociateQP(lang,projectName,qualityProfileName){
 	response = HttpReq("POST",apiUrl,'')
 }
 
+//搜索质量阈
+def ShowQualityGate(gateName){
+	apiUrl = "api/qualitygates/show?name=${gateName}"
+	response = HttpReq("GET",apiUrl,"")
+	response = readJSON text: """${response.content}"""
+    result = response["id"]
+	return result
+}
 
 //创建质量阈
+def CreateQualityGate(gateName){
+	apiUrl = "api/qualitygates/create?name=${gateName}"
+	response = HttpReq("POST",apiUrl,'')
+}
 
-//让项目使用指定质量规则和质量阈
+//关联项目与质量阈
+def ProjectAssociateQG(gateName,projectKey){
+	gateName = gateName.split('-')[0]
+	gateId = ShowQualityGate(gateName)
+	apiUrl = "api/qualitygates/select?gateId=${gateId}&projectKey=${projectKey}"
+	response = HttpReq("POST","apiUrl","")
+	//response = HttpReq("POST",apiUrl,'')
+}
 
