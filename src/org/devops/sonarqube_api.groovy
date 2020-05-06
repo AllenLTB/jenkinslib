@@ -52,7 +52,7 @@ def CreateProject(projectName){
 //搜索质量配置
 def SearchQualityProfile(lang,qualityProfileName){
 	qualityProfileName = qualityProfileName.split('-')[0]
-	apiUrl = "api/qualityprofiles/search?language=${lang}&qualityProfile=${qualityProfileName}"
+	apiUrl = "qualityprofiles/search?language=${lang}&qualityProfile=${qualityProfileName}"
 	response = HttpReq("GET",apiUrl,'')
 	response = readJSON text: """${sponse.content}"""
 	result = response["profiles"][name]
