@@ -6,7 +6,6 @@ def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
 def sonar_status_api = new org.devops.sonarqube_status_api()
 def runOpts
-//def mailUser = '18310892118@163.com'
 if ( "${runOpts}" == "GitlabPush" ) {
 	branchName = branch - '/refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
