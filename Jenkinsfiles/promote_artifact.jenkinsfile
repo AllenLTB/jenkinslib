@@ -48,7 +48,7 @@ pipeline {
 						println(pomArtifact)
 						println(pomPackaging)
 						println(pomGroupId)
-						println("${repoName}"/"{pomGroupId}"/"${pomArtifact}"/"${pomVersion}"    suffix: "${pomPackaging}")
+						println("${repoName}/{pomGroupId}/${pomArtifact}/${pomVersion}    suffix: ${pomPackaging}")
                     	env.buildHome = tool "mvn-3.6.3"
 
 /*
