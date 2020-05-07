@@ -6,6 +6,7 @@ def GetParameter(){
 	env.repoName = "maven-hostd"
 	env.filePath = "target/${jarName}"
 	env.pom = readMavenPom file: 'pom.xml'
+	println("${pom}")
 	pomVersion = "${pom.version}"
 	pomArtifact = "${pom.artifactId}"
 	pomPackaging = "${pom.packaging}"
