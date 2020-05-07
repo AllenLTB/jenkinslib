@@ -16,7 +16,7 @@ def GetParameter(){
 def Main(uploadMethod){
 	if("${uploadMethod}" == "Nexus"){
 		NexusUpload()
-	} else if("${uploadMethod}" == "Nexus"){
+	} else if("${uploadMethod}" == "Maven"){
 		MavenUpload()
 	}
 }
@@ -30,7 +30,7 @@ def NexusUpload(){
 	                                   type: "${pomPackaging}"]],
 	                      credentialsId: 'nexus-user-admin',
 	                      groupId: "${pomGroupId}",
-	                      nexusUrl: "${nexusServer},
+	                      nexusUrl: "${nexusServer}",
 	                      nexusVersion: 'nexus3',
 	                      protocol: 'http',
 	                      repository: "${repoName}",
