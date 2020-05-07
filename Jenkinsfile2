@@ -6,7 +6,7 @@ def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
 def sonarapi = new org.devops.sonarqube_api()
 if ( "${runOpts}" == "GitlabPush" ) {
-	branchName = branch - '/refs/heads/'
+	branchName = branch - 'refs/heads/'
 	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
 	gitlab.ChangeCommitStatus(projectId,commitSha,"running")
 }
