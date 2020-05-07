@@ -47,7 +47,7 @@ def MavenUpload(){
 	    "${buildHome}"/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
 	    -Dfile="${jarName}" -DgroupId="${pomGroupId}" \
 	    -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
-	    -Dpackaging="${pomPackaging}" -DrepositoryId="${maven-hostd}" \
+	    -Dpackaging="${pomPackaging}" -DrepositoryId="${repoName}" \
 	    -Durl=http://"${nexusServer}"/repository/"${repoName}"
 	"""
 }
