@@ -11,7 +11,7 @@ pipeline {
         stage('Download Artifact') {
             steps {
                 script {
-					tools.PermitMes("Ansible部署","green")
+					tools.PrintMes("Ansible部署","green")
                     withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
                         variable: "nexusPassword")]){
                         println("${artifactUrl}")
@@ -26,7 +26,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				script {
-					tools.PermitMes("Ansible部署","green")
+					tools.PrintMes("Ansible部署","green")
 				}
 			}
 		}
