@@ -64,7 +64,8 @@ pipeline {
 					//开始构建
                     env.buildHome = tool "mvn-3.6.3"
                     build.Build("mvn","clean install")
-					nexus.Main("Maven")
+					//nexus.Main("Maven")
+					nexus.Main("Nexus")
 
 					/*
 					//上传制品
