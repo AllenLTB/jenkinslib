@@ -40,12 +40,15 @@ pipeline {
 						println(artifactUrl)
 						newArtificatUrl = artifactUrl - 'http://10.208.3.247:8881/repository/maven-hostd/'
 						pomPackaging = newArtificatUrl.split('\\.').toList()[-1]
-						pomArtifact = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
+						pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
+						pomArtifact = newArtificatUrl.split('/').toList()[-3]
+						println(pomVersion)
 						println(pomArtifact)
 						println(pomPackaging)
                     	env.buildHome = tool "mvn-3.6.3"
 
 /*
+/usr/local/apache-maven-3.6.3/bin/mvn deploy:deploy-file -Dmaven.test.skip=true -Dfile=my-app-1.0-SNAPSHOT.jar -DgroupId=com.mycompany.app -DartifactId=my-app -Dversion=1.0-SNAPSHOT -Dpackaging=jar -DrepositoryId=maven-hostd -Durl=http://10.208.3.247:8881/repository/maven-hostd
 def MavenUpload(){
 	GetParameter()
 	//上传制品
