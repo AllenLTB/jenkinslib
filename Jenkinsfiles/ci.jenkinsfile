@@ -67,21 +67,38 @@ pipeline {
 					//上传制品
 					def jarName = sh(script: "cd target ; ls *.jar",returnStdout: true).trim()
 					def pom = readMavenPom file: 'pom.xml'
+					def repoName = "maven-hostd"
 					pomVersion = "${pom.version}"
 					pomArtifact = "${pom.artifactId}"
 					pomPackaging = "${pom.packaging}"
 					pomGroupId = "${pom.groupId}"
 					println("${pomGroupId}-${pomArtifact}-${pomVersion}-${pomPackaging}")
 
-                    sh """
+                    /*
+					sh """
 						export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
 						cd target/
 						${buildHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
 						-Dfile=${jarName} -DgroupId=${pomGroupId} \
 						-DartifactId=${pomArtifact} -Dversion=${pomVersion} \
 						-Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
-						-Durl=http://10.208.3.247:8881/repository/maven-hostd
+						-Durl=http://10.208.3.247:8881/repository/"${repoName}"
 					"""
+					*/
+
+					def filePath = "target/${jarName}"
+					nexusArtifactUploader artifacts: [[artifactId: "${pomArtifact}",
+													   classifier: '', 
+													   file: "${filePath}", 
+													   type: "${pomPackaging}"]], 
+										  credentialsId: 'nexus-user-admin', 
+										  groupId: "${pomGroupId}", 
+										  nexusUrl: '10.208.3.247:8881', 
+										  nexusVersion: 'nexus3', 
+										  protocol: 'http', 
+										  repository: "${repoName}", 
+										  version: "${pomVersion}"
+
                 }
             }
         }
