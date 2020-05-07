@@ -1,3 +1,5 @@
+@Library('jenkinslib@master')
+def tools = new org.devops.tools()
 pipeline {
     agent {node{label "slave-10.208.3.18"}}
     options {
@@ -8,11 +10,10 @@ pipeline {
     stages {
         stage('Download Artifact') {
             steps {
-                //AN_ACCESS_KEY = credentials('nexus-user-admin-password-string')
                 script {
+					tools.PermitMes("Ansible部署","green")
                     withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
                         variable: "nexusPassword")]){
-                        println("${nexusPassword}")
                         println("${artifactUrl}")
                         sh """
                             wget --user=admin --password=${nexusPassword} ${artifactUrl}
@@ -22,5 +23,12 @@ pipeline {
                 }
             }
         }
+		stage('Deploy') {
+			steps {
+				script {
+					tools.PermitMes("Ansible部署","green")
+				}
+			}
+		}
     }
 }
