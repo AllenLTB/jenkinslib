@@ -75,7 +75,6 @@ pipeline {
 					pomGroupId = "${pom.groupId}"
 					println("${pomGroupId}-${pomArtifact}-${pomVersion}-${pomPackaging}")
 
-                    /*
 					sh """
 						export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
 						cd target/
@@ -85,7 +84,6 @@ pipeline {
 						-Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
 						-Durl=http://10.208.3.247:8881/repository/"${repoName}"
 					"""
-					*/
 
 					def filePath = "target/${jarName}"
 					nexusArtifactUploader artifacts: [[artifactId: "${pomArtifact}",
