@@ -38,7 +38,7 @@ pipeline {
                     	    """ 
 						}
 						println(artifactUrl)
-						newArtificatUrl = artifactUrl -  http://10.208.3.247:8881/repository/maven-hostd
+						newArtificatUrl = artifactUrl -  'http://10.208.3.247:8881/repository/maven-hostd'
 						println(newArtificatUrl)
 					}
 				}
