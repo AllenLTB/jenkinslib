@@ -39,20 +39,25 @@ pipeline {
 						}
 						println(artifactUrl)
 						newArtificatUrl = artifactUrl - 'http://10.208.3.247:8881/repository/maven-hostd/'
+						jarName = newArtificatUrl.split('/').toList()[-1]
 						pomPackaging = newArtificatUrl.split('\\.').toList()[-1]
 						pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
 						pomArtifact = newArtificatUrl.split('/').toList()[-3]
 						pomGroupId = newArtificatUrl.split('/').toList()[0..2].join(".")
 						repoName = 'maven-release'
-						println(pomVersion)
-						println(pomArtifact)
-						println(pomPackaging)
-						println(pomGroupId)
-						println("repository/${repoName}/${pomGroupId}/${pomArtifact}/${pomVersion}    suffix: ${pomPackaging}")
-                    	env.buildHome = tool "mvn-3.6.3"
-
+						//println(pomVersion)
+						//println(pomArtifact)
+						//println(pomPackaging)
+						//println(pomGroupId)
+						//println(newArtificatUrl)
+						println(jarName)
+						println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
+                    	buildHome = tool "mvn-3.6.3"
+						${buildHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true -Dfile="${jarName}" \
+						-DgroupId="${pomGroupId}" -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
+						-Dpackaging="${pomPackaging}" -DrepositoryId="${repoName}" \
+						-Durl=http://10.208.3.247:8881/repository/"${repoName}"
 /*
-/usr/local/apache-maven-3.6.3/bin/mvn deploy:deploy-file -Dmaven.test.skip=true -Dfile=my-app-1.0-SNAPSHOT.jar -DgroupId=com.mycompany.app -DartifactId=my-app -Dversion=1.0-SNAPSHOT -Dpackaging=jar -DrepositoryId=maven-hostd -Durl=http://10.208.3.247:8881/repository/maven-hostd
 def MavenUpload(){
 	GetParameter()
 	//上传制品
@@ -67,7 +72,6 @@ def MavenUpload(){
 	"""
 }
 */
-						println(newArtificatUrl)
 					}
 				}
 			}
