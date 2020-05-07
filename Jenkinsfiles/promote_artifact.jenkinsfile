@@ -1,0 +1,46 @@
+@Library('jenkinslib@master')
+def tools = new org.devops.tools()
+pipeline {
+    agent {node{label "slave-10.208.3.18"}}
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    stages {
+        //stage('Download Artifact') {
+        //    steps {
+        //        script {
+		//			tools.PrintMes("下载制品","green")
+        //            withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
+        //                variable: "nexusPassword")]){
+        //                println("${artifactUrl}")
+        //                sh """
+        //                    wget --user=admin --password=${nexusPassword} ${artifactUrl}
+        //                    ls -l *.jar
+        //                """ 
+        //            }
+        //        }
+        //    }
+        //}
+		stage('Promote Artifact') {
+			steps {
+				script {
+					//晋级策略
+					if ("${promoteType}" == "snapshot -> release") {
+						tools.PrintMes("下载原始制品","green")
+                    	withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
+                    	    variable: "nexusPassword")]){
+                    	    println("${artifactUrl}")
+                    	    sh """
+                    	        wget --user=admin --password=${nexusPassword} ${artifactUrl}
+                    	        ls -l *.jar
+                    	    """ 
+						}
+						println(artifaclUrl)
+					}
+				}
+			}
+		}
+    }
+}
