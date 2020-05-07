@@ -7,6 +7,7 @@ def Build(buildType,buildShell){
     buildHome = tool buildTools[buildType]
 	sh """
     	export PATH=${buildHome}/bin:$PATH
+		export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
     	${buildType} ${buildShell}
    	"""
 }
