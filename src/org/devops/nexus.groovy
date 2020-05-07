@@ -42,12 +42,12 @@ def MavenUpload(){
 	GetParameter()
 	//上传制品
 	sh """
-	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
+	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:"$PATH"
 	    cd target/
-	    ${buildHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
-	    -Dfile=${jarName} -DgroupId=${pomGroupId} \
-	    -DartifactId=${pomArtifact} -Dversion=${pomVersion} \
-	    -Dpackaging=${pomPackaging} -DrepositoryId="${maven-hostd}" \
-	    -Durl=http://${nexusServer}/repository/"${repoName}"
+	    "${buildHome}"/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
+	    -Dfile="${jarName}" -DgroupId="${pomGroupId}" \
+	    -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
+	    -Dpackaging="${pomPackaging}" -DrepositoryId="${maven-hostd}" \
+	    -Durl=http://"${nexusServer}"/repository/"${repoName}"
 	"""
 }
