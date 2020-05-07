@@ -44,7 +44,7 @@ pipeline {
 						pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
 						pomArtifact = newArtificatUrl.split('/').toList()[-3]
 						pomGroupId = newArtificatUrl.split('/').toList()[0..2].join(".")
-						repoName = 'maven-release'
+						repoName = 'maven-releases'
 						//println(pomVersion)
 						//println(pomArtifact)
 						//println(pomPackaging)
