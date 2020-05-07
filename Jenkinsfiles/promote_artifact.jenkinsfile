@@ -42,7 +42,7 @@ pipeline {
 						pomPackaging = newArtificatUrl.split('\\.').toList()[-1]
 						pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
 						pomArtifact = newArtificatUrl.split('/').toList()[-3]
-						pomGroupId = newArtificatUrl.split('/').toList()[1..3]
+						pomGroupId = newArtificatUrl.split('/').toList()[1..3].join(.)
 						println(pomVersion)
 						println(pomArtifact)
 						println(pomPackaging)
