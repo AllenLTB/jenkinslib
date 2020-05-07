@@ -8,21 +8,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
     stages {
-        //stage('Download Artifact') {
-        //    steps {
-        //        script {
-		//			tools.PrintMes("下载制品","green")
-        //            withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
-        //                variable: "nexusPassword")]){
-        //                println("${artifactUrl}")
-        //                sh """
-        //                    wget --user=admin --password=${nexusPassword} ${artifactUrl}
-        //                    ls -l *.jar
-        //                """ 
-        //            }
-        //        }
-        //    }
-        //}
 		stage('Promote Artifact') {
 			steps {
 				script {
@@ -45,12 +30,6 @@ pipeline {
 						pomArtifact = newArtificatUrl.split('/').toList()[-3]
 						pomGroupId = newArtificatUrl.split('/').toList()[0..2].join(".")
 						repoName = 'maven-releases'
-						//println(pomVersion)
-						//println(pomArtifact)
-						//println(pomPackaging)
-						//println(pomGroupId)
-						//println(newArtificatUrl)
-						println(jarName)
 						println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
                     	buildHome = tool "mvn-3.6.3"
 						sh """
@@ -60,21 +39,6 @@ pipeline {
 							-Durl=http://10.208.3.247:8881/repository/"${repoName}"
 						"""
 					}
-/*
-def MavenUpload(){
-	GetParameter()
-	//上传制品
-	sh """
-	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:"$PATH"
-	    cd target/
-	    "${buildHome}"/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
-	    -Dfile="${jarName}" -DgroupId="${pomGroupId}" \
-	    -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
-	    -Dpackaging="${pomPackaging}" -DrepositoryId="${repoName}" \
-	    -Durl=http://"${nexusServer}"/repository/"${repoName}"
-	"""
-}
-*/
 				}
 			}
 		}
