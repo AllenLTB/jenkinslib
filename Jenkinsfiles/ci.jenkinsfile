@@ -62,7 +62,7 @@ pipeline {
             steps{
                 script{
 					//开始构建
-                    buildHome = tool "mvn-3.6.3"
+                    def buildHome = tool "mvn-3.6.3"
                     build.Build("mvn","clean install")
 					nexus.Main("Maven")
 
