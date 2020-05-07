@@ -53,7 +53,7 @@ pipeline {
 						println(jarName)
 						println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
                     	buildHome = tool "mvn-3.6.3"
-						${buildHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true -Dfile="${jarName}" \
+						"${buildHome}"/bin/mvn deploy:deploy-file -Dmaven.test.skip=true -Dfile="${jarName}" \
 						-DgroupId="${pomGroupId}" -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
 						-Dpackaging="${pomPackaging}" -DrepositoryId="${repoName}" \
 						-Durl=http://10.208.3.247:8881/repository/"${repoName}"
