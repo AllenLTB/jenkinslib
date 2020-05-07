@@ -43,6 +43,7 @@ pipeline {
 						println(pomVersion)
                     	env.buildHome = tool "mvn-3.6.3"
 
+/*
 def MavenUpload(){
 	GetParameter()
 	//上传制品
@@ -56,6 +57,7 @@ def MavenUpload(){
 	    -Durl=http://"${nexusServer}"/repository/"${repoName}"
 	"""
 }
+*/
 						println(newArtificatUrl)
 					}
 				}
