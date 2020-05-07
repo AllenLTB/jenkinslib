@@ -62,7 +62,7 @@ pipeline {
                 script{
                     buildHome = tool "mvn-3.6.3"
 					//上传制品
-					def jarName = sh(retrunStdout: true, script: "cd target ; ls *.jar").tirm()
+					def jarName = sh(retrunStdout: true, script: "cd target ; ls *.jar").trim()
 					def pom = readMavenPom file: 'pom.xml'
 					pomVersion = "${pom.version}"
 					pomArtifact = "${pom.artifactId}"
