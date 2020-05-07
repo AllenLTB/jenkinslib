@@ -22,6 +22,7 @@ def Main(uploadMethod){
 }
 
 def NexusUpload(){
+	GetParameter()
 	//上传制品
 	nexusArtifactUploader artifacts: [[artifactId: "${pomArtifact}",
 	                                   classifier: '',
@@ -38,6 +39,7 @@ def NexusUpload(){
 }
 
 def MavenUpload(){
+	GetParameter()
 	//上传制品
 	sh """
 	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
