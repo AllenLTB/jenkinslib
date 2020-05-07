@@ -1,5 +1,5 @@
 package org.devops
-def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,branchName.extraAgruments){
+def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,branchName,extraAgruments){
 	def scannerHome = "/usr/local/sonarscanner"
 	def sonarData = sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim()
 	withSonarQubeEnv("${SonarServer}") {
