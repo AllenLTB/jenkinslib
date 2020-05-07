@@ -1,0 +1,26 @@
+pipeline {
+    agent {node{label "slave-10.208.3.18"}}
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    stages {
+        stage('Download Artifact') {
+            steps {
+                //AN_ACCESS_KEY = credentials('nexus-user-admin-password-string')
+                script {
+                    withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
+                        variable: "nexusPassword")]){
+                        println("${nexusPassword}")
+                        println("${artifactUrl}")
+                        sh """
+                            wget --user=admin --password=${nexusPassword} ${artifactUrl}
+                            ls -l *.jar
+                        """ 
+                    }
+                }
+            }
+        }
+    }
+}
