@@ -5,7 +5,7 @@ def GetParameter(){
 	env.jarName = sh(script: "cd target ; ls *.jar",returnStdout: true).trim()
 	env.repoName = "maven-hostd"
 	env.filePath = "target/${jarName}"
-	env.pom = readMavenPom file: 'pom.xml'
+	pom = readMavenPom file: 'pom.xml'
 	println("${pom}")
 	pomVersion = "${pom.version}"
 	pomArtifact = "${pom.artifactId}"
