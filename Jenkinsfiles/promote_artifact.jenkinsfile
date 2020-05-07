@@ -39,8 +39,10 @@ pipeline {
 						}
 						println(artifactUrl)
 						newArtificatUrl = artifactUrl - 'http://10.208.3.247:8881/repository/maven-hostd/'
-						pomVersion = newArtificatUrl.split('\\.').toList()[-1]
-						println(pomVersion)
+						pomPackaging = newArtificatUrl.split('\\.').toList()[-1]
+						pomArtifact = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
+						println(pomArtifact)
+						println(pomPackaging)
                     	env.buildHome = tool "mvn-3.6.3"
 
 /*
