@@ -1,5 +1,5 @@
 package org.devops
-def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,extraAgruments){
+def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,branchName.extraAgruments){
 	def scannerHome = "/usr/local/sonarscanner"
 	def sonarData = sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim()
 	withSonarQubeEnv("${SonarServer}") {
@@ -13,7 +13,8 @@ def Scan(projectNmae,projectDesc,projectPath,projectLanguage,SonarServer,Coding,
 			-Dsonar.language="${projectLanguage}" \
         	-Dsonar.sourceEncoding="${Coding}" \
         	-Dsonar.projectVersion="${sonarData}" \
-        	-Dsonar.login="${SONAR_AUTH_TOKEN}" ${extraAgruments}
+        	-Dsonar.login="${SONAR_AUTH_TOKEN}" \
+			-Dsonar.branch.name=${branchName} ${extraAgruments}
 		"""
 	}
 }

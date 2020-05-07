@@ -106,7 +106,7 @@ pipeline {
 					sonarapi.ProjectAssociateQG("${JOB_NAME}","${JOB_NAME}")
 
 					tools.PrintMes("代码扫描","green")
-					sonar.Scan("${JOB_NAME}","${JOB_NAME}",'src','java','Sonar-Server','UTF-8', 
+					sonar.Scan("${JOB_NAME}","${JOB_NAME}",'src','java','Sonar-Server','UTF-8',"${branchName}". 
 					'-Dsonar.java.binaries=target/classes -Dsonar.java.test.binaries=target/test-classes -Dsonar.java.surefire.report=target/surefire-reports')
 				}
 			}
