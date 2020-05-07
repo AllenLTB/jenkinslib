@@ -2,7 +2,7 @@ package org.devops
 
 def GetParameter(){
 	def nexusServer = '10.208.3.247:8881'
-	def jarName = sh(script: "cd target ; ls *.jar",returnStdout: true).trim()
+	env.jarName = sh(script: "cd target ; ls *.jar",returnStdout: true).trim()
 	def pom = readMavenPom file: 'pom.xml'
 	def repoName = "maven-hostd"
 	def filePath = "target/${jarName}"
