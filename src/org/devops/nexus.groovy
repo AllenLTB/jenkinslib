@@ -38,11 +38,6 @@ def NexusUpload(){
 }
 
 def MavenUpload(){
-	//开始构建
-	buildHome = tool "mvn-3.6.3"
-	build.Build("mvn","clean install")
-	
-	
 	//上传制品
 	sh """
 	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH

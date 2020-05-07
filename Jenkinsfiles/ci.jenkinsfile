@@ -64,6 +64,7 @@ pipeline {
                     buildHome = tool "mvn-3.6.3"
                     build.Build("mvn","clean install")
 
+					/*
 					//上传制品
 					def jarName = sh(script: "cd target ; ls *.jar",returnStdout: true).trim()
 					def pom = readMavenPom file: 'pom.xml'
@@ -99,6 +100,7 @@ pipeline {
 										  repository: "${repoName}", 
 										  version: "${pomVersion}"
 
+				*/
                 }
             }
         }
