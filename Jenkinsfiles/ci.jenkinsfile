@@ -73,8 +73,8 @@ pipeline {
                     sh """
 						export PATH=/usr/java/jdk1.8.0_212-amd64/bin:$PATH
 						cd target/
-						${buildHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
-						-Dfile=${jarName} -DgroupId=${pomGroupId} \
+						${buildHome}/bin/mvn clean install && ${buildHome}/bin/mvn deploy:deploy-file \
+						-Dmaven.test.skip=true -Dfile=${jarName} -DgroupId=${pomGroupId} \
 						-DartifactId=${pomArtifact} -Dversion=${pomVersion} \
 						-Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
 						-Durl=http://10.208.3.247:8881/repository/maven-hostd
