@@ -93,8 +93,8 @@ pipeline {
 						
 
 					tools.PrintMes("关联项目与质量配置","green")
-					sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"${JOB_NAME}")
-					//sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"Sonar%20way")			//如果url中更包含空格，就用%20来代替空格
+					//sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"${JOB_NAME}")
+					sonarapi.ProjectAssociateQP("java","${JOB_NAME}",,"Sonar%20way")			//如果url中更包含空格，就用%20来代替空格
 
 					//tools.PrintMes("搜索质量阈ID","green")
 					//sonarapi.ShowQualityGate("${JOB_NAME}")
@@ -103,7 +103,8 @@ pipeline {
 					//sonarapi.CreateQualityGate("${JOB_NAME}")
 
 					tools.PrintMes("关联项目与质量阈","green")
-					sonarapi.ProjectAssociateQG("${JOB_NAME}","${JOB_NAME}")
+					//sonarapi.ProjectAssociateQG("${JOB_NAME}","${JOB_NAME}")
+					sonarapi.ProjectAssociateQG("Sonar%20way","${JOB_NAME}")
 
 					tools.PrintMes("代码扫描","green")
 					sonar.Scan("${JOB_NAME}","${JOB_NAME}",'src','java','Sonar-Server','UTF-8',"${branchName}", 
