@@ -38,7 +38,24 @@ pipeline {
                     	    """ 
 						}
 						println(artifactUrl)
-						newArtificatUrl = artifactUrl -  'http://10.208.3.247:8881/repository/maven-hostd'
+						newArtificatUrl = artifactUrl - 'http://10.208.3.247:8881/repository/maven-hostd/'
+						pomVersion = newArtificatUrl.split('\\.').toList()[-1]
+						println(pomVersion)
+                    	env.buildHome = tool "mvn-3.6.3"
+
+def MavenUpload(){
+	GetParameter()
+	//上传制品
+	sh """
+	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:"$PATH"
+	    cd target/
+	    "${buildHome}"/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
+	    -Dfile="${jarName}" -DgroupId="${pomGroupId}" \
+	    -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
+	    -Dpackaging="${pomPackaging}" -DrepositoryId="${repoName}" \
+	    -Durl=http://"${nexusServer}"/repository/"${repoName}"
+	"""
+}
 						println(newArtificatUrl)
 					}
 				}
