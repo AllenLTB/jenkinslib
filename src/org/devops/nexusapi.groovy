@@ -22,7 +22,7 @@ def GetComponentsList(repository) {
 		if (component["group"] == "com.mycompany.app" && 
 			component["name"] == "my-app" && 
 			component["version"] == "1.0-20200507.074626-1") {
-			println(compoent["id"])
+			println(component["id"])
 		}
 	}
 	//println("${result}")
