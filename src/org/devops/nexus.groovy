@@ -73,6 +73,7 @@ def PromoteArtifact(promoteType,artifactUrl){
 	    env.pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
 	    env.pomArtifact = newArtificatUrl.split('/').toList()[-3]
 	    env.pomGroupId = newArtificatUrl.split('/').toList()[0..2].join(".")
+		env.filePath = "${jarName}"
 	    env.repoName = 'maven-releases'
 		env.nexusServer = '10.208.3.247:8881'
 	    println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
