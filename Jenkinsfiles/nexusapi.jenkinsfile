@@ -1,0 +1,22 @@
+@Library('jenkinslib@master')
+def tools = new org.devops.tools()
+def nexusapi = new org.devops.nexusapi()
+
+pipeline {
+	agent {node{label "slave-10.208.3.18"}}
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+	parameter {
+		choice(name: 'CHOICES', choices: 'maven-hostd\nmaven-releases', description: '选择制品库')
+	}
+	stages {
+		stage("Nexus API"){
+			steps{
+				nexusapi.GetComponentsList(repository)
+			}
+		}
+	}
+}

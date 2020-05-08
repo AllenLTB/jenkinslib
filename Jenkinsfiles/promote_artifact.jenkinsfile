@@ -13,6 +13,7 @@ pipeline {
 			steps {
 				script {
 					//晋级策略
+					//这需要安装"Maven Artifact ChoiceListProvider (Nexus)插件"，配合传参一起使用
 					nexus.PromoteArtifact("${promoteType}","${artifactUrl}")
 				}
 			}
