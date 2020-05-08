@@ -16,6 +16,6 @@ def HttpReq(reqType,reqUrl,reqBody){
 def GetComponentsList(repository) {
 	apiUrl = "v1/components?repository=${repository}"
     response = HttpReq("GET",apiUrl,'')
-	result readJSON text: """${response.content}"""
+	result = readJSON text: """${response.content}"""
 	println("${result}")
 }
