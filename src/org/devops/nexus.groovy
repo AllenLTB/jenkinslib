@@ -44,9 +44,9 @@ def MavenUpload(){
 	buildHome = tool "mvn-3.6.3"
 	sh """
 	    export PATH=/usr/java/jdk1.8.0_212-amd64/bin:"$PATH"
-	    cd target/
+	    ##cd target/
 	    "${buildHome}"/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \
-	    -Dfile="${jarName}" -DgroupId="${pomGroupId}" \
+	    -Dfile="${filePath}" -DgroupId="${pomGroupId}" \
 	    -DartifactId="${pomArtifact}" -Dversion="${pomVersion}" \
 	    -Dpackaging="${pomPackaging}" -DrepositoryId="${repoName}" \
 	    -Durl=http://"${nexusServer}"/repository/"${repoName}"
