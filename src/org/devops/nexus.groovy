@@ -57,7 +57,7 @@ def MavenUpload(){
 def PromoteArtifact(promoteType,artifactUrl){
 	//晋级策略
 	if ("${promoteType}" == "snapshot -> release") {
-	    tools.PrintMes("下载原始制品","green")
+	    println("下载原始制品")
 	    withCredentials([string(credentialsId: "nexus-user-admin-password-string",
 	        variable: "nexusPassword")]){
 	        println("${artifactUrl}")
@@ -78,6 +78,7 @@ def PromoteArtifact(promoteType,artifactUrl){
 	    println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
 	
 	    //NexusUpload()
+		println("上传新制品")
 	    MavenUpload()
 	}
 }
