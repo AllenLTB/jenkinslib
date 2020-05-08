@@ -1,7 +1,7 @@
 package org.devops
 
 def HttpReq(reqType,reqUrl,reqBody){
-    def nexusServer = "https://10.208.3.247:8881/service/rest"
+    def nexusServer = "http://10.208.3.247:8881/service/rest"
     result = httpRequest authentication: 'nexus-user-admin',
 		httpMode: reqType,
         contentType: "APPLICATION_JSON",
