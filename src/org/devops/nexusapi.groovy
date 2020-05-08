@@ -17,6 +17,6 @@ def GetComponentsList(repository) {
 	apiUrl = "v1/components?repository=${repository}"
     response = HttpReq("GET",apiUrl,'')
 	result = readJSON text: """${response.content}"""
-	println("${result}"[id])
+	println("${result}"["id"])
 	//println("${result}")
 }
