@@ -27,7 +27,6 @@ def GetComponentsList(repository) {
 		}
 	}
 	//println("${result}")
-	//println("${result}")
 }
 
 def GetComponentDownloadUrl(componentId) {
@@ -38,7 +37,6 @@ def GetComponentDownloadUrl(componentId) {
 	result.each{
 		 println it
 	}
-	//println(result)
 }
 
 
