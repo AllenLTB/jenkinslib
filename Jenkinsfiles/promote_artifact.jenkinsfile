@@ -12,6 +12,10 @@ pipeline {
 			steps {
 				script {
 					//晋级策略
+
+					PromoteArtifact("${promoteType}","${artifactUrl}")
+
+					/*
 					if ("${promoteType}" == "snapshot -> release") {
 						tools.PrintMes("下载原始制品","green")
                     	withCredentials([string(credentialsId: "nexus-user-admin-password-string", 
@@ -39,6 +43,7 @@ pipeline {
 							-Durl=http://10.208.3.247:8881/repository/"${repoName}"
 						"""
 					}
+				*/
 				}
 			}
 		}
