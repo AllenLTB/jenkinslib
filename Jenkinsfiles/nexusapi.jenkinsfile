@@ -15,7 +15,9 @@ pipeline {
 	stages {
 		stage("Nexus API"){
 			steps{
-				nexusapi.GetComponentsList(repository)
+				script{
+					nexusapi.GetComponentsList(repository)
+				}
 			}
 		}
 	}
