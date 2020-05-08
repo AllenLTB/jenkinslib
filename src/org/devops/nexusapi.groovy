@@ -19,7 +19,7 @@ def GetComponentsList(repository) {
 	result = readJSON text: """${response.content}"""
 	result = result["items"]
 	for (component in result) {
-		if (compoent["group"] == "com.mycompany.app" && 
+		if (component["group"] == "com.mycompany.app" && 
 			component["name"] == "my-app" && 
 			component["version"] == "1.0-20200507.074626-1") {
 			println(compoent["id"])
