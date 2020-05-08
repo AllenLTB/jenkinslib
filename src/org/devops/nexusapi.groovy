@@ -31,7 +31,7 @@ def GetComponentsList(repository) {
 }
 
 def GetComponentDownloadUrl(componentId) {
-	apiUrl = "v1/components?repository/${componentId}"
+	apiUrl = "v1/components/${componentId}"
     response = HttpReq("GET",apiUrl,'')
 	result = readJSON text: """${response.content}"""
 	result = result["assets"]["downloadUrl"]
