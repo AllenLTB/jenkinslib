@@ -9,7 +9,7 @@ pipeline {
         timestamps()
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
-	parameter {
+	parameters {
 		choice(name: 'CHOICES', choices: 'maven-hostd\nmaven-releases', description: '选择制品库')
 	}
 	stages {
