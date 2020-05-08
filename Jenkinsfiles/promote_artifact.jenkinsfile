@@ -1,5 +1,6 @@
 @Library('jenkinslib@master')
 def tools = new org.devops.tools()
+def nexus = new org.devops.nexus()
 pipeline {
     agent {node{label "slave-10.208.3.18"}}
     options {
@@ -13,7 +14,7 @@ pipeline {
 				script {
 					//晋级策略
 
-					PromoteArtifact("${promoteType}","${artifactUrl}")
+					nexus.PromoteArtifact("${promoteType}","${artifactUrl}")
 
 					/*
 					if ("${promoteType}" == "snapshot -> release") {
