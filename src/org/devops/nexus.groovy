@@ -55,30 +55,31 @@ def MavenUpload(){
 
 
 def PromoteArtifact(promoteType,artifactUrl){
-//晋级策略
-if ("${promoteType}" == "snapshot -> release") {
-    tools.PrintMes("下载原始制品","green")
-    withCredentials([string(credentialsId: "nexus-user-admin-password-string",
-        variable: "nexusPassword")]){
-        println("${artifactUrl}")
-        sh """
-            wget --user=admin --password=${nexusPassword} ${artifactUrl}
-            ls -l *.jar
-        """
-    }
-    println(artifactUrl)
-    newArtificatUrl = artifactUrl - 'http://10.208.3.247:8881/repository/maven-hostd/'
-    jarName = newArtificatUrl.split('/').toList()[-1]
-    env.pomPackaging = newArtificatUrl.split('\\.').toList()[-1]
-    env.pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
-    env.pomArtifact = newArtificatUrl.split('/').toList()[-3]
-    env.pomGroupId = newArtificatUrl.split('/').toList()[0..2].join(".")
-    env.repoName = 'maven-releases'
-	env.nexusServer = '10.208.3.247:8881'
-    println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
-
-    //NexusUpload()
-    MavenUpload()
+	//晋级策略
+	if ("${promoteType}" == "snapshot -> release") {
+	    tools.PrintMes("下载原始制品","green")
+	    withCredentials([string(credentialsId: "nexus-user-admin-password-string",
+	        variable: "nexusPassword")]){
+	        println("${artifactUrl}")
+	        sh """
+	            wget --user=admin --password=${nexusPassword} ${artifactUrl}
+	            ls -l *.jar
+	        """
+	    }
+	    println(artifactUrl)
+	    newArtificatUrl = artifactUrl - 'http://10.208.3.247:8881/repository/maven-hostd/'
+	    jarName = newArtificatUrl.split('/').toList()[-1]
+	    env.pomPackaging = newArtificatUrl.split('\\.').toList()[-1]
+	    env.pomVersion = newArtificatUrl.split('/').toList()[-2].replace("SNAPSHOT","RELEASE")
+	    env.pomArtifact = newArtificatUrl.split('/').toList()[-3]
+	    env.pomGroupId = newArtificatUrl.split('/').toList()[0..2].join(".")
+	    env.repoName = 'maven-releases'
+		env.nexusServer = '10.208.3.247:8881'
+	    println("${repoName} ${pomGroupId} ${pomArtifact} ${pomVersion} ${pomPackaging}")
+	
+	    //NexusUpload()
+	    MavenUpload()
+	}
 }
 
 				//	/*
