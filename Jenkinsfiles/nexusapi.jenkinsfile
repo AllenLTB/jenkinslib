@@ -10,7 +10,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 	parameters {
-		choice(name: 'CHOICES', choices: 'maven-hostd\nmaven-releases', description: '选择制品库')
+		choice(name: 'repository', choices: 'maven-hostd\nmaven-releases', description: '选择制品库')
 	}
 	stages {
 		stage("Nexus API"){
