@@ -23,8 +23,20 @@ def GetComponentsList(repository) {
 			component["name"] == "my-app" && 
 			component["version"] == "1.0-20200507.074626-1") {
 			println(component["id"])
+			return component["id"]
 		}
 	}
 	//println("${result}")
 	//println("${result}")
 }
+
+def GetComponentDownloadUrl(componentId) {
+	apiUrl = "v1/components?repository/${componentId}"
+    response = HttpReq("GET",apiUrl,'')
+	result = readJSON text: """${response.content}"""
+	result = result["assets"]["downloadUrl"]
+	println(result)
+}
+
+
+

@@ -16,7 +16,8 @@ pipeline {
 		stage("Nexus API"){
 			steps{
 				script{
-					nexusapi.GetComponentsList("${repository}")
+					componentId = nexusapi.GetComponentsList("${repository}")
+					nexusapi.GetComponentDownloadUrl("${componentId}")
 				}
 			}
 		}
