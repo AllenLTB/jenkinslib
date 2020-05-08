@@ -24,6 +24,7 @@ def GetComponentsList(repository) {
 			component["version"] == "1.0-20200507.074626-1") {
 			println(compoent["id"])
 		}
+	}
 	//println("${result}")
 	//println("${result}")
 }
