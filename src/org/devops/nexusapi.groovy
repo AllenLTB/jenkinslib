@@ -17,7 +17,13 @@ def GetComponentsList(repository) {
 	apiUrl = "v1/components?repository=${repository}"
     response = HttpReq("GET",apiUrl,'')
 	result = readJSON text: """${response.content}"""
-	result = result["items"]["id"]
-	println("${result}")
+	result = result["items"]
+	for (component in result) {
+		if (compoent["group"] == "com.mycompany.app" && 
+			component["name"] == "my-app" && 
+			component["version"] == "1.0-20200507.074626-1") {
+			println(compoent["id"])
+		}
+	//println("${result}")
 	//println("${result}")
 }
