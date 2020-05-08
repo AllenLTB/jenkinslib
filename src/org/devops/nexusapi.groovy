@@ -35,7 +35,10 @@ def GetComponentDownloadUrl(componentId) {
     response = HttpReq("GET",apiUrl,'')
 	result = readJSON text: """${response.content}"""
 	result = result["assets"]["downloadUrl"]
-	println(result)
+	result.each{
+		 println it
+	}
+	//println(result)
 }
 
 
