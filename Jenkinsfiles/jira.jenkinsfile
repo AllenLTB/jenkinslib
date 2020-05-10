@@ -1,13 +1,6 @@
 @Library('jenkinslib@master')
 def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
-/*
-if ( "${runOpts}" == "" ) {
-	branchName = branch - 'refs/heads/'
-	currentBuild.description = "Trigger by ${buildUser} - ${branch}"
-	gitlab.ChangeCommitStatus(projectId,commitSha,"running")
-}
-*/
 pipeline {
     agent { node{label "scanner"} }
 	options {
@@ -18,7 +11,6 @@ pipeline {
     triggers {
         GenericTrigger(
         	genericVariables: [
-                //[key: "webhookEvent", value: "\$.webhookEvent", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
                 [key: "webHookData", value: "\$", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""]
             ],
         	genericRequestVariables: [
@@ -31,8 +23,6 @@ pipeline {
             printContributedVariables: true,
             printPostContent: true,
             silentResponse: true
-			//regexpFilterText: '$object_kind $before $after',
-			//regexpFilterExpression: '^push\\s(?!0{40}).{40}\\s(?!0{40}).{40}$'
         )
     }
     stages {
@@ -46,7 +36,7 @@ pipeline {
 						case("jira:issue_created"):
 							env.issueName = response["issue"]["key"]
 							env.userName = response["user"]["name"]
-							env.moduleNames = response["issue"]["fields"]["components"][0]["name"]
+							env.moduleNames = response["issue"]["fields"]["components"]
 							env.newBranchName = response["issue"]["fields"]["summary"]
 							env.fixVersion = response["issue"]["fields"]["fixVersions"]
 							tools.PrintMes("Trigger by ${userName} ${eventType} ${issueName}","green")
@@ -65,9 +55,45 @@ pipeline {
 			}
 			steps {
 				script{
+					def projectIds = []
 					projectName = moduleNames 
-					projectId = gitlab.GetProjectId(projectName)
-					gitlab.CreateBranch(projectId,newBranchName,"master")
+					def projects = readJSON text: """${moduleNames}"""
+					println('123456')
+					println(projects)
+					for (project in projects){
+						println(project["name"])
+						currentBuild.description += "\n project: ${projectName}"
+						repoName = projectName.split("-")[0]
+						try {
+							projectId = gitlab.GetProjectID(projectName)
+							println(projectId)
+							projectIds.add(projectId)
+						} catch(e){
+							println(e)
+							println("未获取到项目ID，请检查模块名称！")
+						}
+					}
+					println(projectIds)
+					if (fixVersion.size() == 0) {
+                        for (id in projectIds){
+                            println("新建特性分支--> ${id} --> ${issueName}")
+                            currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
+                            gitlab.CreateBranch(id,"master","${issueName}")
+                        }
+                    } else {
+                        fixVersion = fixVersion[0]['name']
+                        println("Issue关联release操作,Jenkins创建合并请求")
+                        currentBuild.description += "\n Issue关联release操作,Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
+                        
+                        for (id in projectIds){
+
+                            println("创建RELEASE-->${id} -->${fixVersion}分支")
+                            gitlab.CreateBranch(id,"master","RELEASE-${fixVersion}")
+                            
+                            println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
+                            gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
+                        }
+                    }
 				}
 			}
 		}
