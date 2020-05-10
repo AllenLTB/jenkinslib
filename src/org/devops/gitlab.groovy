@@ -44,7 +44,8 @@ def ListRepositoryBranch(projectId){
 	response = HttpReq('GET',apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	result = response["name"]
-	//println(result)
+	println(result)
+	return result
 }
 
 
@@ -54,10 +55,10 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 	response = HttpReq('POST',apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	branchList = gitlab.ListRepositoryBranch(projectId)
-	for (name in branchList) {
-		if (name == newBranchName) {
-			println("Create ${newBranchName} success.")
-		}
-	}
+	#for (name in branchList) {
+	#	if (name == newBranchName) {
+	#		println("Create ${newBranchName} success.")
+	#	}
+	#}
 
 }
