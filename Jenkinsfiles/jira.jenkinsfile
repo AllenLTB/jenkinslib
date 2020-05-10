@@ -19,7 +19,7 @@ pipeline {
         GenericTrigger(
         	genericVariables: [
                 [key: "webhookEvent", value: "\$.webhookEvent", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
-                [key: "repositoryName", value: "\$.issue.fields.components.0.name", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
+                [key: "webHookData", value: "\$", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
             ],
         	genericRequestVariables: [
                 [key: "projectKey", regexpFilter: ""]
@@ -39,10 +39,17 @@ pipeline {
         stage('Build') {
             steps{
                 script{
-					//创建分支
-					println("hello")
+					response = readJSON text: """${webHookData}"""
+					eventType = response["webhookEvent"]
+					tools.PrintMes("${evn.eventType}","green")
 					if (webhookEvent == 'jira:issue_created') {
-						println(repositoryName)
+						issueName = response["issue"]["key"]
+						userName = response["user"]["name"]
+						moduleNames = response["issue"]["fields"]["components"]["name"]
+						fixVersion = response["issue"]["fields"]["fixVersions"]
+						currentBuild.description = "Trigger by ${userName} ${eventType} ${issueName}"
+						tools.PrintMes("Trigger by ${userName} ${eventType} ${issueName}","green")
+						break
 					}
                 }
             }
