@@ -88,11 +88,9 @@ pipeline {
                         for (id in projectIds){
 							searchResult = gitlab.SearchRepositoryBranch(id,"${issueName}")
 							if (searchResult == 'true') {
-								println("qwqwqwqwqwqwqwqwqwqw")
 								println("已存在${issueName}分支.")
                             	currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> ${issueName}"
 							} else {
-								println("jdjdjdjdjdjdjjdjdj")
                             	println("新建特性分支--> ${id} --> ${issueName}")
                             	currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
                             	gitlab.CreateBranch(id,"${issueName}","master")
@@ -103,18 +101,16 @@ pipeline {
                         println("Issue关联release操作,Jenkins创建合并请求")
                         currentBuild.description += "\n Issue关联release操作,Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
                         for (id in projectIds){
-							branchList = gitlab.ListRepositoryBranch(projectId)
-							for (name in branchList) {
-								if (name == "RELEASE-${fixVersion}") {
-									println("已存在${name}分支.")
-                            		currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> ${issueName}"
-								} else {
-                            		println("创建RELEASE-->${id} -->${fixVersion}分支")
-                            		gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
+							searchResult = gitlab.SearchRepositoryBranch(id,"ELEASE-${fixVersion}")
+							if (searchResult == 'true') {
+								println("已存在RELEASE-${fixVersion}分支.")
+                            	currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> RELEASE-${fixVersion}"
+							} else {
+                            	println("创建RELEASE-->${id} -->${fixVersion}分支")
+                            	gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
                             		
-                            		println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
-                            		gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
-								}
+                           		println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
+                           		gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
 							}
 						}
                     }
