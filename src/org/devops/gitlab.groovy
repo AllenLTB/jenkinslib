@@ -44,7 +44,10 @@ def ListRepositoryBranch(projectId){
 	response = HttpReq('GET',apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	result = response[0]["name"]
-	println(result)
+	result.each{
+		 println it
+	}
+	//println(result)
 }
 
 
