@@ -87,7 +87,7 @@ pipeline {
 					if (fixVersion.size() == 0) {
                         for (id in projectIds){
 							searchResult = gitlab.SearchRepositoryBranch(id,"${issueName}")
-							if (searchResult == 'false') {
+							if (searchResult == 'true') {
 								println("qwqwqwqwqwqwqwqwqwqw")
 								println("已存在${issueName}分支.")
                             	currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> ${issueName}"
