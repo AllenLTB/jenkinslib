@@ -16,11 +16,11 @@ pipeline {
 		string(name: 'newBranchName', defaultValue: '', description: '新分支的名字')
 	}
     stages {
-		stage('GetProjectId') {
+		stage('CreateNewBranch') {
 			steps {
 				script {
 					projectId = gitlab.GetProjectId(repository)
-					CreateBranch(projectId,newBranchName,refBranchName)
+					gitlab.CreateBranch(projectId,newBranchName,refBranchName)
 				}
 			}
 		}
