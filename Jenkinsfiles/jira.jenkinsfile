@@ -40,9 +40,9 @@ pipeline {
             steps{
                 script{
 					response = readJSON text: """${webHookData}"""
-					eventType = response["webhookEvent"]
+					env.eventType = response["webhookEvent"]
 					tools.PrintMes("${eventType}","green")
-					switch (eventType) {
+					switch(eventType) {
 						case "jira:issue_created":
 							env.issueName = response["issue"]["key"]
 							env.userName = response["user"]["name"]
