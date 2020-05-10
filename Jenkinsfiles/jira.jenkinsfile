@@ -36,6 +36,8 @@ pipeline {
 						case("jira:issue_created"):
 							env.issueName = response["issue"]["key"]
 							env.userName = response["user"]["name"]
+							env.fields = response["issue"]["fields"]
+							println(fields)
 							env.moduleNames = response["issue"]["fields"]["components"]
 							env.newBranchName = response["issue"]["fields"]["summary"]
 							env.fixVersion = response["issue"]["fields"]["fixVersions"]
