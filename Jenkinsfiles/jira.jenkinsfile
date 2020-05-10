@@ -44,10 +44,10 @@ pipeline {
 					tools.PrintMes("${eventType}","green")
 					switch (eventType) {
 						case "jira:issue_created":
-							issueName = response["issue"]["key"]
-							userName = response["user"]["name"]
-							moduleNames = response["issue"]["fields"]["components"]["name"]
-							fixVersion = response["issue"]["fields"]["fixVersions"]
+							env.issueName = response["issue"]["key"]
+							env.userName = response["user"]["name"]
+							env.moduleNames = response["issue"]["fields"]["components"]["name"]
+							env.fixVersion = response["issue"]["fields"]["fixVersions"]
 							tools.PrintMes("Trigger by ${userName} ${eventType} ${issueName}","green")
 							currentBuild.description = " Trigger by ${userName} ${eventType} ${issueName} "
 							break
