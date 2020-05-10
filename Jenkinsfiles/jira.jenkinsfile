@@ -88,7 +88,7 @@ pipeline {
                         for (id in projectIds){
 							branchList = gitlab.ListRepositoryBranch(projectId)
 							for (name in branchList) {
-								if (name == ${issueName}) {
+								if (name == "${issueName}") {
 									println("已存在${name}分支.")
                             		currentBuild.description += "\n 该特性分支已存在,未进行创建 --> ${id} --> ${issueName}"
 								} else {
@@ -105,7 +105,7 @@ pipeline {
                         for (id in projectIds){
 							branchList = gitlab.ListRepositoryBranch(projectId)
 							for (name in branchList) {
-								if (name == ${issueName}) {
+								if (name == "RELEASE-${fixVersion}") {
 									println("已存在${name}分支.")
                             		currentBuild.description += "\n 该特性分支已存在,未进行创建 --> ${id} --> ${issueName}"
 								} else {
