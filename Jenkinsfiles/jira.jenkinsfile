@@ -66,6 +66,7 @@ pipeline {
 					projectName = moduleNames 
 					fixVersion = readJSON text: """${fixVersion}"""
 					println(fixVersion.size())
+
 					//获取GitLab项目ID
 					def projects = readJSON text: """${moduleNames}"""
 					println(projects)
@@ -85,21 +86,37 @@ pipeline {
 					println(projectIds)
 					if (fixVersion.size() == 0) {
                         for (id in projectIds){
-                            println("新建特性分支--> ${id} --> ${issueName}")
-                            currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
-                            gitlab.CreateBranch(id,"${issueName}","master")
+							branchList = gitlab.ListRepositoryBranch(projectId)
+							for (name in branchList) {
+								if (name == ${issueName}) {
+									println("已存在${name}分支.")
+                            		currentBuild.description += "\n 该特性分支已存在,未进行创建 --> ${id} --> ${issueName}"
+								} else {
+                            		println("新建特性分支--> ${id} --> ${issueName}")
+                            		currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
+                            		gitlab.CreateBranch(id,"${issueName}","master")
+								}
+							}
                         }
                     } else {
                         fixVersion = fixVersion[0]['name']
                         println("Issue关联release操作,Jenkins创建合并请求")
                         currentBuild.description += "\n Issue关联release操作,Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
                         for (id in projectIds){
-                            println("创建RELEASE-->${id} -->${fixVersion}分支")
-                            gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
-                            
-                            println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
-                            gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
-                        }
+							branchList = gitlab.ListRepositoryBranch(projectId)
+							for (name in branchList) {
+								if (name == ${issueName}) {
+									println("已存在${name}分支.")
+                            		currentBuild.description += "\n 该特性分支已存在,未进行创建 --> ${id} --> ${issueName}"
+								} else {
+                            		println("创建RELEASE-->${id} -->${fixVersion}分支")
+                            		gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
+                            		
+                            		println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
+                            		gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
+								}
+							}
+						}
                     }
 				}
 			}

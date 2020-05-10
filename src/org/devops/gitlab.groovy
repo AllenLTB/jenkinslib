@@ -60,5 +60,4 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 			println("Create ${newBranchName} success.")
 		}
 	}
-
 }
