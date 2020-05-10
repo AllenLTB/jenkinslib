@@ -29,7 +29,7 @@ def ChangeCommitStatus(projectId,commitSha,status){
 }
 
 //获取项目ID
-def GetProjectId(ProjectName) {
+def GetProjectId(projectName) {
 	apiUrl = "projects?search=${projectName}"
 	response = HttpReq('GET',apiUrl,'')
     response = readJSON text: """${response.content}"""
