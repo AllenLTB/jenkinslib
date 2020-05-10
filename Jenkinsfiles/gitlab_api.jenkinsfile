@@ -1,0 +1,47 @@
+@Library('jenkinslib@master')
+def tools = new org.devops.tools()
+def gitlab = new org.devops.gitlab()
+def toemail = new org.devops.toemail()
+
+pipeline {
+    agent { node{label "scanner"} }
+	options {
+		timeout(time: 1, unit: 'HOURS') 
+		timestamps()
+		buildDiscarder(logRotator(numToKeepStr: '10'))
+	}
+    stages {
+		stage('GetProjectId') {
+			steps {
+				script {
+					GetProjectId("jenkinslib")
+				}
+			}
+		}
+    }
+	/*
+	post {
+		success{
+			script{
+				tools.PrintMes("success","green")
+				gitlab.ChangeCommitStatus(projectId,commitSha,"success")
+				toemail.toemail("","${mailUser}")
+			}
+		}
+		failure{
+			script{
+				tools.PrintMes("failed","red")
+				gitlab.ChangeCommitStatus(projectId,commitSha,"failed")
+				toemail.toemail("","${mailUser}")
+			}
+		}
+		aborted{
+			script{
+				tools.PrintMes("canceled","buie")
+				gitlab.ChangeCommitStatus(projectId,commitSha,"canceled")
+				toemail.toemail("","${mailUser}")
+			}
+		}
+	}
+	*/
+}
