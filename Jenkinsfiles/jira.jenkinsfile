@@ -73,6 +73,7 @@ pipeline {
 						}
 					}
 					println(projectIds)
+					println(fixVersion)
 					if (fixVersion.size() == 0) {
                         for (id in projectIds){
                             println("新建特性分支--> ${id} --> ${issueName}")
