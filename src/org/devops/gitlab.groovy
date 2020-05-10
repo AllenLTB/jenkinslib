@@ -43,7 +43,7 @@ def ListRepositoryBranch(projectId){
 	apiUrl = "projects/${projectId}/repository/branches"
 	response = HttpReq('GET',apiUrl,'')
 	response = readJSON text: """${response.content}"""
-	result = response[0]["name"]
+	result = response["name"]
 	result.each{
 		 println it
 	}
