@@ -19,7 +19,7 @@ pipeline {
         GenericTrigger(
         	genericVariables: [
                 [key: "webhookEvent", value: "\$.webhookEvent", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
-                [key: "repositoryName", value: "\$.issue.fields.components.name", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
+                [key: "repositoryName", value: "\$.issue.fields.components.0.name", expressionType: "JSONPath", regexpFilter: "", defaultValue: ""],
             ],
         	genericRequestVariables: [
                 [key: "projectKey", regexpFilter: ""]
