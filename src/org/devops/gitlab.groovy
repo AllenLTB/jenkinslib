@@ -33,7 +33,7 @@ def GetProjectId(projectName) {
 	apiUrl = "projects?search=${projectName}"
 	response = HttpReq('GET',apiUrl,'')
     response = readJSON text: """${response.content}"""
-	result = response[0]["id"]
+	result = response["id"]
 	println(result)
 	return result
 }
