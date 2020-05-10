@@ -41,7 +41,7 @@ pipeline {
                 script{
 					response = readJSON text: """${webHookData}"""
 					eventType = response["webhookEvent"]
-					tools.PrintMes("${evn.eventType}","green")
+					tools.PrintMes("${eventType}","green")
 					switch (eventType) {
 						case "jira:issue_created":
 							issueName = response["issue"]["key"]
