@@ -54,7 +54,7 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 	apiUrl = "projects/${projectId}/repository/branches?branch=${newBranchName}&ref=${refBranchName}"
 	response = HttpReq('POST',apiUrl,'')
 	response = readJSON text: """${response.content}"""
-	branchList = gitlab.ListRepositoryBranch(projectId)
+	branchList = ListRepositoryBranch(projectId)
 	//for (name in branchList) {
 	//	if (name == newBranchName) {
 	//		println("Create ${newBranchName} success.")
