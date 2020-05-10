@@ -80,7 +80,7 @@ pipeline {
                         for (id in projectIds){
                             println("新建特性分支--> ${id} --> ${issueName}")
                             currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
-                            gitlab.CreateBranch(id,"${issueName}","${master}")
+                            gitlab.CreateBranch(id,"${issueName}","master")
                         }
                     } 
 					/*else {
@@ -89,7 +89,7 @@ pipeline {
                         currentBuild.description += "\n Issue关联release操作,Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
                         for (id in projectIds){
                             println("创建RELEASE-->${id} -->${fixVersion}分支")
-                            gitlab.CreateBranch(id,"RELEASE-${fixVersion}","${master}")
+                            gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
                             
                             println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
                             gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
