@@ -55,10 +55,10 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 	response = HttpReq('POST',apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	branchList = ListRepositoryBranch(projectId)
-	//for (name in branchList) {
-	//	if (name == newBranchName) {
-	//		println("Create ${newBranchName} success.")
-	//	}
-	//}
+	for (name in branchList) {
+		if (name == newBranchName) {
+			println("Create ${newBranchName} success.")
+		}
+	}
 
 }
