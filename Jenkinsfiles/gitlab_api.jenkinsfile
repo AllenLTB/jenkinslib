@@ -10,6 +10,9 @@ pipeline {
 		timestamps()
 		buildDiscarder(logRotator(numToKeepStr: '10'))
 	}
+	parameters {
+		choice(name: 'repository', choices: 'jenkinslib\nsimple-java-maven-app\nTestapp1', description: '选择制品库')
+	}
     stages {
 		stage('GetProjectId') {
 			steps {
