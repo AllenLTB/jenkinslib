@@ -51,6 +51,7 @@ pipeline {
 							env.fixVersion = response["issue"]["fields"]["fixVersions"]
 							tools.PrintMes("Trigger by ${userName} ${eventType} ${issueName}","green")
 							currentBuild.description = "Trigger by ${userName} ${eventType} ${issueName}"
+							println(currentBuild.description)
 							break
 					}
                 }
