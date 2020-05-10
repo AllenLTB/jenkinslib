@@ -12,13 +12,15 @@ pipeline {
 	}
 	parameters {
 		choice(name: 'repository', choices: 'jenkinslib\nsimple-java-maven-app\nTestapp1', description: '选择制品库')
+		string(name: 'refBranchName', defaultValue: '', description: '基于哪个分支创建新分支')
+		string(name: 'newBranchName', defaultValue: '', description: '新分支的名字')
 	}
     stages {
 		stage('GetProjectId') {
 			steps {
 				script {
 					projectId = gitlab.GetProjectId(repository)
-					gitlab.ListRepositoryBranch(projectId)
+					CreateBranch(projectId,newBranchName,refBranchName)
 				}
 			}
 		}
