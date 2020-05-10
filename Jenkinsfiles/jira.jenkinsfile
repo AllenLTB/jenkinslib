@@ -90,10 +90,11 @@ pipeline {
 							for (name in branchList) {
 								if (name == "${issueName}") {
 									println("已存在${name}分支.")
-                            		currentBuild.description += "\n 该特性分支已存在,未进行创建 --> ${id} --> ${issueName}"
+                            		currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> ${issueName}"
 								} else {
+									println("jdjdjdjdjdjdjjdjdj")
                             		println("新建特性分支--> ${id} --> ${issueName}")
-                            		currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
+                             		currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
                             		gitlab.CreateBranch(id,"${issueName}","master")
 								}
 							}
@@ -107,7 +108,7 @@ pipeline {
 							for (name in branchList) {
 								if (name == "RELEASE-${fixVersion}") {
 									println("已存在${name}分支.")
-                            		currentBuild.description += "\n 该特性分支已存在,未进行创建 --> ${id} --> ${issueName}"
+                            		currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> ${issueName}"
 								} else {
                             		println("创建RELEASE-->${id} -->${fixVersion}分支")
                             		gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
