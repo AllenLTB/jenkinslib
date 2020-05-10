@@ -49,6 +49,21 @@ def ListRepositoryBranch(projectId){
 }
 
 
+//搜索分支
+def SearchRepositoryBranch(projectId,searchKey){
+	apiUrl = "projects/${projectId}/repository/branches?search=${searchKey}"
+	response = HttpReq('GET',apiUrl,'')
+	response = readJSON text: """${response.content}"""
+	if (response.size() == 0) {
+		println("不存在匹配${searchKey}关键字的分支")
+		return 'false'
+	} else {
+		result = response["name"]
+		println("匹配${searchKey}关键字的分支有: ${result}")
+		return 'true'
+	}	
+}
+
 //创建分支
 def CreateBranch(projectId,newBranchName,refBranchName) {
 	apiUrl = "projects/${projectId}/repository/branches?branch=${newBranchName}&ref=${refBranchName}"
