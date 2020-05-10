@@ -14,7 +14,7 @@ pipeline {
 		stage('GetProjectId') {
 			steps {
 				script {
-					GetProjectId("jenkinslib")
+					gitlab.GetProjectId("jenkinslib")
 				}
 			}
 		}
