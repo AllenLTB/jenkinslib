@@ -42,6 +42,9 @@ def GetProjectId(projectName) {
 def ListRepositoryBranch(projectId){
 	apiUrl = "projects/${projectId}/repository/branches"
 	response = HttpReq('GET',apiUrl,'')
+	response = readJSON text: """${response.content}"""
+	result = response[0]["name"]
+	println(result)
 }
 
 
