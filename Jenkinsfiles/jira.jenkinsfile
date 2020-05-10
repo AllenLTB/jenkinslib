@@ -86,7 +86,7 @@ pipeline {
 					println(projectIds)
 					if (fixVersion.size() == 0) {
                         for (id in projectIds){
-							searchResult = SearchRepositoryBranch(id,"${issueName}")
+							searchResult = gitlab.SearchRepositoryBranch(id,"${issueName}")
 							if (searchResult == 'false') {
 								println("qwqwqwqwqwqwqwqwqwqw")
 								println("已存在${issueName}分支.")
