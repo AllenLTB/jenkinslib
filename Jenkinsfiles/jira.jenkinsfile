@@ -45,8 +45,8 @@ pipeline {
 						//if ( eventType == "jira:issue_created") {
 							env.issueName = response["issue"]["key"]
 							env.userName = response["user"]["name"]
-							env.moduleNames = response["issue"]["fields"]["components"]["name"]
-							env.fixVersion = response["issue"]["fields"]["fixVersions"]
+							env.moduleNames = response["issue"]["fields"]["components"][0]["name"]
+							//env.fixVersion = response["issue"]["fields"]["fixVersions"]
 							tools.PrintMes("Trigger by ${userName} ${eventType} ${issueName}","green")
 							//currentBuild.description = "Trigger by ${userName} ${eventType} ${issueName}"
 							//break
