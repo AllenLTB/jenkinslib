@@ -61,11 +61,11 @@ pipeline {
 					println('123456')
 					println(projects)
 					for (project in projects){
-						println(project["name"])
+						projectName = project["name"]
+						println(projectName)
 						currentBuild.description += "\n project: ${projectName}"
-						repoName = projectName.split("-")[0]
 						try {
-							projectId = gitlab.GetProjectId( projectName)
+							projectId = gitlab.GetProjectId(projectName)
 							println(projectId)
 							projectIds.add(projectId)
 						} catch(e){
