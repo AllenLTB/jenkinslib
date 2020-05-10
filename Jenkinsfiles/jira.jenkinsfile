@@ -57,6 +57,9 @@ pipeline {
 				script{
 					def projectIds = []
 					projectName = moduleNames 
+					fixVersion = readJSON text: """${fixVersion}"""
+					println(fixVersion.size())
+					//获取GitLab项目ID
 					def projects = readJSON text: """${moduleNames}"""
 					println(projects)
 					for (project in projects){
@@ -73,7 +76,6 @@ pipeline {
 						}
 					}
 					println(projectIds)
-					println(fixVersion)
 					if (fixVersion.size() == 0) {
                         for (id in projectIds){
                             println("新建特性分支--> ${id} --> ${issueName}")
