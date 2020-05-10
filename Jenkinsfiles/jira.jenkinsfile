@@ -79,7 +79,8 @@ pipeline {
                             currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
                             gitlab.CreateBranch(id,"${issueName}","${master}")
                         }
-                    } else {
+                    } 
+					/*else {
                         fixVersion = fixVersion[0]['name']
                         println("Issue关联release操作,Jenkins创建合并请求")
                         currentBuild.description += "\n Issue关联release操作,Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
@@ -91,6 +92,7 @@ pipeline {
                             gitlab.CreateMr(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
                         }
                     }
+					*/
 				}
 			}
 		}
