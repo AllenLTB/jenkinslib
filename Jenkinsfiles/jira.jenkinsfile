@@ -42,8 +42,8 @@ pipeline {
 					response = readJSON text: """${webHookData}"""
 					env.eventType = response["webhookEvent"]
 					tools.PrintMes("${eventType}","green")
-					switch(eventType) {
-						case "jira:issue_created":
+					//switch(eventType) {
+						if ( eventType == "jira:issue_created") {
 							env.issueName = response["issue"]["key"]
 							env.userName = response["user"]["name"]
 							env.moduleNames = response["issue"]["fields"]["components"]["name"]
