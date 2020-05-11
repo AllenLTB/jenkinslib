@@ -80,10 +80,19 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 //创建合并请求MR
 def CreateMergeRequest(projectId,sourceBranch,target_Branch,title) {
 	apiUrl = "projects/${projectId}/merge_requests?source_branch=${sourceBranch}&target_branch=${target_Branch}&title=${title}"
-	reqBody = """{"source_branch": "${sourceBranch}",
-				  "target_branch": "${target_Branch}",
-				  "title: "${title}"}"""
+	//reqBody = """{"source_branch": "${sourceBranch}",
+	//			  "target_branch": "${target_Branch}",
+	//			  "title: "${title}"}"""
 					//"assignee_id: "${assigneeUser}"}"""
 	response = HttpReq('POST',apiUrl,'')
 	response = readJSON text: """${response.content}"""
+}
+
+//获取用户ID
+def GetUserId(username) {
+	apiUrl = "users?username${username}"
+	response = HttpReq('POST',apiUrl,'')
+	response = readJSON text: """${response.content}"""
+	println(response["id"])
+	return response["id"]
 }
