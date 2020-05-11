@@ -82,6 +82,27 @@ pipeline {
 						}
 					}
 					println(issues)
+					issues.keySet()
+					println(issues)
+					/*
+					for (issue in issues.keySet()){
+						for (projectName in issues[issue]){
+							repoName = projectName.split("-")[0]
+							projectId = gitlab.GetProjectID(repoName, projectName)
+						}
+						try{
+							println("创建合并请求  RELEASE-${versionName}  ---> master")
+							result = gitlab.CreateMr(projectId,"RELEASE-${versionName}","master","RELEASE-${versionName}--->master")
+							result = readJSON text: """${result}"""
+							mergeId = result["iid"]
+							gitlab.AcceptMr(projectId,mergeId)
+							sleep 15
+						} cache(e){
+							println(e)
+						}
+						response = 
+					}
+					*/
 				}
 			}
 		}
