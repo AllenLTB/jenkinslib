@@ -78,9 +78,9 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 }
 
 //创建合并请求MR
-def CreateMergeRequest(projectId,sourceBranch,target_Branch,title) {
+def CreateMergeRequest(projectId,sourceBranch,targetBranch,title) {
 	//其实单独通过URL里传递参数也可以是想，但是如果参数中有一些特殊字符就会有问题了，所以改为使用requestbody来传递参数
-	//apiUrl = "projects/${projectId}/merge_requests?source_branch=${sourceBranch}&target_branch=${target_Branch}&title=${title}"
+	//apiUrl = "projects/${projectId}/merge_requests?source_branch=${sourceBranch}&target_branch=${targetBranch}&title=${title}"
 	apiUrl = "projects/${projectId}/merge_requests"
 	reqBody = """{"source_branch": "${sourceBranch}", "target_branch": "${targetBranch}", "title": "${title}"}"""
 	//response = HttpReq('POST',"${apiUrl}",'')
