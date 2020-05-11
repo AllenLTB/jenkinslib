@@ -88,7 +88,18 @@ pipeline {
 							repoName = projectName.split()[0]
 							println(repoName)
 							projectId = gitlab.GetProjectId(projectName)
+							response = gitlab.SearchProjectBranchesInfo(projectId,issue)
+
+							println(response[projectId][0]['merged'])
+							println('111111111111111111111111111111111111111111111111111111')
+							if (response[projectId][0]['merged'] == false){
+								println("${projectName} --> ${issue} -->此分支未合并暂时忽略！")
+							} else {
+							    println("${projectName} --> ${issue} -->此分支已合并准备清理！")
+							    gitlab.DeleteBranch(projectId,issue)
+							}
 						}
+						/*
 						try{
 							println("创建合并请求 ${projectId} -->  RELEASE-${versionName}  ---> master")
 							result = gitlab.CreateMergeRequest(projectId,"RELEASE-${versionName}","master","RELEASE-${versionName}--->master")
@@ -99,15 +110,7 @@ pipeline {
 						} catch(e) {
 							println(e)
 						}
-						response = gitlab.SearchProjectBranchesInfo(projectId,issue)
-						println(response[projectId][0]['merged'])
-						println('111111111111111111111111111111111111111111111111111111')
-						if (response[projectId][0]['merged'] == false){
-							println("${projectName} --> ${issue} -->此分支未合并暂时忽略！")
-						} else {
-						    println("${projectName} --> ${issue} -->此分支已合并准备清理！")
-						    gitlab.DeleteBranch(projectId,issue)
-						}
+						*/
 					}
 				}
 			}
