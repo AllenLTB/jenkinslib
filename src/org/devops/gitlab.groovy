@@ -139,3 +139,10 @@ def GetUserId(username) {
 	println(response[0]["id"])
 	return response[0]["id"]
 }
+
+//删除分支
+def DeleteBranch(projectId,branchName){
+    apiUrl = "/projects/${projectId}/repository/branches/${branchName}"
+    response = HttpReq("DELETE",apiUrl,'').content
+    println(response)
+}
