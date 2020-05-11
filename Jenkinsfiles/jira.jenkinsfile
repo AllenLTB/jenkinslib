@@ -83,6 +83,7 @@ pipeline {
 					}
 					println(issues)
 					for (issue in issues.keySet()){
+						println(issue)
 						for (projectName in issues[issue]){
 							repoName = projectName.split("-")[0]
 							println(repoName)
