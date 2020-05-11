@@ -1,6 +1,7 @@
 @Library('jenkinslib@master')
 def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
+def jira = new org.devops.jira()
 pipeline {
     agent { node{label "scanner"} }
 	options {
@@ -49,10 +50,28 @@ pipeline {
 							tools.PrintMes("Trigger by ${userName} ${eventType} ${issueName}","green")
 							currentBuild.description = "Trigger by ${userName} ${eventType} ${issueName}"
 							break
+						case("jira:version_released"):
+							env.versionName = response["version"]["name"]
+							currentBuild.description = "Triggre by ${eventType} ${versionName}"
+							break
+						default:
+							println('Hello World!')
 					}
                 }
             }
         }
+		stage('DeleteBranch'){
+			when {
+				environment name: 'eventType', value: 'jira:version_released'
+			}
+			steps{
+				script{
+					//获取issueName
+					println("project%20%3D%20${projectKey}%20AND%20fixVersion%20%3D%20${versionName}%20AND%20issuetype%20%3D%20Task")
+					response = jira.RunJql("project%20%3D%20${projectKey}%20AND%20fixVersion%20%3D%20${versionName}%20AND%20issuetype%20%3D%20Task")
+				}
+			}
+		}
 		stage('CreateBranchOrMR'){
 			when {
 				anyOf {
