@@ -66,15 +66,16 @@ pipeline {
 			}
 			steps{
 				script{
-					//获取issueName
+					//通过Jira的API获取issueName, 下面的%20表示空格, %3D表示等于号
 					println("project%20%3D%20${projectKey}%20AND%20fixVersion%20%3D%20${versionName}%20AND%20issuetype%20%3D%20Task")
 					response = jira.RunJql("project%20%3D%20${projectKey}%20AND%20fixVersion%20%3D%20${versionName}%20AND%20issuetype%20%3D%20Task")
 					response = readJSON text: """${response.content}"""
+					//创建一个叫做issuee的map类型变量
 					issues = [:]
 					for ( issue in response['issues']){
 						println(issue["key"])
 						println(issue["fields"]["components"])
-						issues[issue["key"]] = []
+						issues[issue["key"]] = []		//将每个issue的名字都作为issue变量中的key, 这些key的值就是对应issue中关联的组件名(仓库名)
 
 						//获取issue关联的模块
 						for (component in issue["fields"]["components"] ){
@@ -82,15 +83,15 @@ pipeline {
 						}
 					}
 					println(issues)
-					for (issue in issues.keySet()){
-						for (projectName in issues[issue]){
+					for (issue in issues.keySet()){				//获取issues变量中每个key的名字
+						for (projectName in issues[issue]){		//获取这些key对应的值(仓库名)
 							//println(projectName)
-							repoName = projectName.split()[0]
-							println(repoName)
-							projectId = gitlab.GetProjectId(projectName)
-							response = gitlab.SearchProjectBranchesInfo(projectId,issue)
+							//repoName = projectName.split()[0]
+							//println(repoName)
+							projectId = gitlab.GetProjectId(projectName)		//获取仓库的ID
+							response = gitlab.SearchProjectBranchesInfo(projectId,issue)	//渠道仓库中分支的信息, 分支名就是jira issue的名字
 
-							println(response[projectId][0]['merged'])
+							println(response[projectId][0]['merged'])			//如果分支是merge的(RELEASE合并到了master), 则删除分支
 							if (response[projectId][0]['merged'] == false){
 								println("${projectName} --> ${issue} -->此分支未合并, 暂不清理!")
 								currentBuild.description += "\n ${projectName} --> ${issue} -->此分支未合并, 暂不清理!"
@@ -99,7 +100,7 @@ pipeline {
 								currentBuild.description += "\n ${projectName} --> ${issue} -->此分支已合并, 准备清理!"
 							    gitlab.DeleteBranch(projectId,issue)
 
-								searchResult = gitlab.SearchRepositoryBranch(projectId,issue)
+								searchResult = gitlab.SearchRepositoryBranch(projectId,issue)		//最后判断特性分支是否删除成功
 								if (searchResult == 'true') {
 									currentBuild.description += "\n ${projectId}-->${issue}分支删除失败"
 									error("${projectId}-->${issue}分支删除失败")
