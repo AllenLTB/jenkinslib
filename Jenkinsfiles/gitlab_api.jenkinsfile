@@ -23,7 +23,7 @@ pipeline {
 			steps {
 				script {
 					projectId = gitlab.GetProjectId(repository)
-					CreateMergeRequest(projectId,sourceBranch,targetBranch,mergeRequestTitle)
+					gitlab.CreateMergeRequest(projectId,sourceBranch,targetBranch,mergeRequestTitle)
 				}
 			}
 		}
