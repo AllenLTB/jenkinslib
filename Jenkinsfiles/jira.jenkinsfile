@@ -102,10 +102,10 @@ pipeline {
 								searchResult = gitlab.SearchRepositoryBranch(projectId,issue)
 								if (searchResult == 'true') {
 									currentBuild.description += "\n ${projectId}-->${issue}分支删除失败"
-									error("${id}-->${issue}分支删除失败")
+									error("${projectId}-->${issue}分支删除失败")
 								} else {
 									currentBuild.description += "\n ${projectId}-->${issue}分支删除成功"
-									println("${id}-->${issue}分支删除成功")
+									println("${projectId}-->${issue}分支删除成功")
 								}
 							}
 						}
