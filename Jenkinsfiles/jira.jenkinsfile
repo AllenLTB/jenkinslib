@@ -107,7 +107,7 @@ pipeline {
                             	currentBuild.description += "\n 该特性分支已存在, 未创建 --> ${id} --> RELEASE-${fixVersion}"
 							} else {
                             	println("创建RELEASE-->${id} -->${fixVersion}分支")
-                            	currentBuild.description += "\n 新建特性分支--> ${id} --> ${fixVersion}"
+                            	currentBuild.description += "\n 新建特性分支--> ${id} --> RELEASE-${fixVersion}"
                             	gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
 							}
 							//创建特性分支到RELEASE分支的合并请求
