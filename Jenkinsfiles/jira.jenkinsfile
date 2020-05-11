@@ -109,9 +109,9 @@ pipeline {
                             	println("创建RELEASE-->${id} -->${fixVersion}分支")
                             	gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
 							}
-							result = gitlab.SearchMergeRequest(projectId,sourceBranch,targetBranch,'opened')
+							result = gitlab.SearchMergeRequest(id,"${issueName}","RELEASE-${fixVersion}",'opened')
 							if (result == 'true') {
-								println("已存在${sourceBranch}到${targetBranch}分支的合并请求")
+								println("已存在${issueName}到RELEASE-${fixVersion}分支的合并请求")
                         		currentBuild.description += "\n 已存在 ${id} --> ${issueName} --> RELEASE-${fixVersion}合并请求, 未创建" 
 							} else {
                            		println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
