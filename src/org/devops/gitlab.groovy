@@ -83,7 +83,7 @@ def CreateMergeRequest(projectId,sourceBranch,target_Branch,title) {
 	apiUrl = "projects/${projectId}/merge_requests?source_branch=${sourceBranch}&target_branch=${target_Branch}&title=${title}"
 	//apiUrl = "projects/${projectId}/merge_requests"
 	//reqBody = """{"source_branch":"${sourceBranch}", "target_branch":"${targetBranch}","title":"${title}"}"""
-	response = HttpReq('POST',"${apiUrl}",)
+	response = HttpReq('POST',"${apiUrl}",'')
 	response = readJSON text: """${response.content}"""
 }
 
