@@ -89,7 +89,7 @@ pipeline {
 							searchResult = gitlab.SearchRepositoryBranch(id,"${issueName}")
 							if (searchResult == 'true') {
 								println("已存在${issueName}分支.")
-                            	currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> ${issueName}"
+                            	currentBuild.description += "\n 该特性分支已存在, 未创建 --> ${id} --> ${issueName}"
 							} else {
                             	println("新建特性分支--> ${id} --> ${issueName}")
                             	currentBuild.description += "\n 新建特性分支--> ${id} --> ${issueName}"
@@ -99,18 +99,25 @@ pipeline {
                     } else {
                         fixVersion = fixVersion[0]['name']
                         println("Issue关联release操作, Jenkins创建合并请求")
-                        currentBuild.description += "\n Issue关联release, Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
+                        //currentBuild.description += "\n Issue关联release, Jenkins创建合并请求 \n ${issueName} --> RELEASE-${fixVersion}" 
                         for (id in projectIds){
 							searchResult = gitlab.SearchRepositoryBranch(id,"RELEASE-${fixVersion}")
 							if (searchResult == 'true') {
 								println("已存在RELEASE-${fixVersion}分支.")
-                            	currentBuild.description += "\n 该特性分支已存在, 未进行创建 --> ${id} --> RELEASE-${fixVersion}"
+                            	currentBuild.description += "\n 该特性分支已存在, 未创建 --> ${id} --> RELEASE-${fixVersion}"
 							} else {
                             	println("创建RELEASE-->${id} -->${fixVersion}分支")
                             	gitlab.CreateBranch(id,"RELEASE-${fixVersion}","master")
 							}
-                           	println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
-                           	gitlab.CreateMergeRequest(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
+							result = gitlab.SearchMergeRequest(projectId,sourceBranch,targetBranch,'opened')
+							if (result == 'true') {
+								println("已存在${sourceBranch}到${targetBranch}分支的合并请求")
+                        		currentBuild.description += "\n 已存在 ${id} --> ${issueName} --> RELEASE-${fixVersion}合并请求, 未创建" 
+							} else {
+                           		println("创建合并请求 ${issueName} ---> RELEASE-${fixVersion}")
+                        		currentBuild.description += "\n Issue关联release, Jenkins创建合并请求 ${id} --> ${issueName} --> RELEASE-${fixVersion}" 
+                           		gitlab.CreateMergeRequest(id,"${issueName}","RELEASE-${fixVersion}","${issueName}--->RELEASE-${fixVersion}")
+							}
 						}
                     }
 				}
