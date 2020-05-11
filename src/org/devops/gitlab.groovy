@@ -78,7 +78,7 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 }
 
 //创建合并请求MR
-def CreateMergeRequest(projectId,sourceBranch,target_Branch,assignee_id) {
+def CreateMergeRequest(projectId,sourceBranch,target_Branch,title) {
 	apiUrl = "projects/${projectId}/merge_requests?source_branch=${sourceBranch}&target_branch=${target_Branch}&title=${title}"
 	reqBody = """{"source_branch": "${sourceBranch}",
 				  "target_branch": "${target_Branch}",

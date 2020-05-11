@@ -14,15 +14,16 @@ pipeline {
 		choice(name: 'repository', choices: 'jenkinslib\nsimple-java-maven-app\nTestapp1', description: '选择仓库')
 		//string(name: 'refBranchName', defaultValue: '', description: '基于哪个分支创建新分支')
 		//string(name: 'newBranchName', defaultValue: '', description: '新分支的名字')
-		string(name: 'sourceBranch', defaultValue: '', description: '合并操作的源分支')
-		string(name: 'targetBranch', defaultValue: '', description: '合并操作的目标分支')
+		string(name: 'sourceBranch', defaultValue: '', description: '合并请求的源分支')
+		string(name: 'targetBranch', defaultValue: '', description: '合并请求的目标分支')
+		string(name: 'mergeRequestTitle', defaultValue: '', description: '合并请求的名称')
 	}
 	stages {
 		stage('CreateMergeRequest') {
 			steps {
 				script {
 					projectId = gitlab.GetProjectId(repository)
-					CreateMergeRequest(projectId,sourceBranch,targetBranch)
+					CreateMergeRequest(projectId,sourceBranch,targetBranch,mergeRequestTitle)
 				}
 			}
 		}
