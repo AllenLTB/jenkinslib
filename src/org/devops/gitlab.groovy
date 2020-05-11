@@ -78,7 +78,7 @@ def CreateBranch(projectId,newBranchName,refBranchName) {
 }
 
 //搜索合并请求
-def SearchMergeRequest(projectId,sourceBranch,targetBranch,state)
+def SearchMergeRequest(projectId,sourceBranch,targetBranch,state) {
 	apiUrl = "projects/${projectId}/merge_requests?scope=all&state=${state}&source_branch=${sourceBranch}&target_branch=${targetBranch}"
 	response = HttpReq('POST',"${apiUrl}",'')
 	response = readJSON text: """${response.content}"""
