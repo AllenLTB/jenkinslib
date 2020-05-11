@@ -49,7 +49,7 @@ def ListRepositoryBranch(projectId){
 }
 
 
-//搜索分支, 判断分支是否存放
+//搜索分支, 判断分支是否存在
 def SearchRepositoryBranch(projectId,searchKey){
 	apiUrl = "projects/${projectId}/repository/branches?search=${searchKey}"
 	response = HttpReq('GET',apiUrl,'')
