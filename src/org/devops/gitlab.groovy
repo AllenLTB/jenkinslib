@@ -82,7 +82,13 @@ def SearchMergeRequest(projectId,sourceBranch,targetBranch,state) {
 	apiUrl = "projects/${projectId}/merge_requests?scope=all&state=${state}&source_branch=${sourceBranch}&target_branch=${targetBranch}"
 	response = HttpReq('GET',"${apiUrl}",'')
 	response = readJSON text: """${response.content}"""
-	//result response[0][""]
+	if (response.size() == 0) {
+		println("不存在${sourceBranch}到${targetBranch}分支的合并请求")
+		return 'false'
+	} else {
+		println("存在${sourceBranch}到${targetBranch}分支的合并请求")
+		return 'true'
+	}	
 }
 
 //创建合并请求MR
