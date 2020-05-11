@@ -93,6 +93,6 @@ def GetUserId(username) {
 	apiUrl = "users?username=${username}"
 	response = HttpReq('GET',apiUrl,'')
 	response = readJSON text: """${response.content}"""
-	println(response["id"])
-	return response["id"]
+	println(response[0]["id"])
+	return response[0]["id"]
 }
