@@ -49,7 +49,7 @@ def ListRepositoryBranch(projectId){
 }
 
 
-//搜索分支
+//搜索分支, 判断分支是否存放
 def SearchRepositoryBranch(projectId,searchKey){
 	apiUrl = "projects/${projectId}/repository/branches?search=${searchKey}"
 	response = HttpReq('GET',apiUrl,'')
@@ -62,6 +62,28 @@ def SearchRepositoryBranch(projectId,searchKey){
 		println("匹配${searchKey}关键字的分支有: ${result}")
 		return 'true'
 	}	
+}
+
+//搜索分支，返回信息
+def SearchProjectBranchesInfo(projectId,searchKey) {
+	def branchUrl =  "projects/${projectId}/repository/branches?search=${searchKey}"
+	response = HttpReq("GET",branchUrl,'').content
+	def branchInfo = readJSON text: """${response}"""
+	def branches = [:]
+	branches[projectId] = []
+	if(branchInfo.size() ==0){
+	    return branches
+	} else {
+	    for (branch in branchInfo){
+	        //println(branch)
+	        branches[projectId] += ["branchName":branch["name"],
+	                                "commitMes":branch["commit"]["message"],
+	                                "commitId":branch["commit"]["id"],
+	                                "merged": branch["merged"],
+	                                "createTime": branch["commit"]["created_at"]]
+	    }
+	    return branches
+	}
 }
 
 //创建分支
@@ -101,6 +123,12 @@ def CreateMergeRequest(projectId,sourceBranch,targetBranch,title) {
 	//response = HttpReq('POST',"${apiUrl}",'')
 	response = HttpReq('POST',"${apiUrl}",reqBody)
 	response = readJSON text: """${response.content}"""
+}
+
+//允许合并
+def AcceptMergeRequest(projectId,mergeId){
+	def apiUrl = "projects/${projectId}/merge_requests/${mergeId}/merge"
+	HttpReq('PUT',apiUrl,'')
 }
 
 //获取用户ID
