@@ -91,7 +91,7 @@ pipeline {
 						}
 						try{
 							println("创建合并请求 projectId -->  RELEASE-${versionName}  ---> master")
-							result = gitlab.CreateMr(projectId,"RELEASE-${versionName}","master","RELEASE-${versionName}--->master")
+							result = gitlab.CreateMergeRequest(projectId,"RELEASE-${versionName}","master","RELEASE-${versionName}--->master")
 							result = readJSON text: """${result}"""
 							mergeId = result["iid"]
 							gitlab.AcceptMergeRequest(projectId,mergeId)
