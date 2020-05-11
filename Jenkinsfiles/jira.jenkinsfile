@@ -99,12 +99,12 @@ pipeline {
 								currentBuild.description += "\n ${projectName} --> ${issue} -->此分支已合并, 准备清理!"
 							    gitlab.DeleteBranch(projectId,issue)
 
-								searchResult = gitlab.SearchRepositoryBranch(id,issue)
+								searchResult = gitlab.SearchRepositoryBranch(projectId,issue)
 								if (searchResult == 'true') {
-									currentBuild.description += "\n ${id}-->${issue}分支删除失败"
+									currentBuild.description += "\n ${projectId}-->${issue}分支删除失败"
 									error("${id}-->${issue}分支删除失败")
 								} else {
-									currentBuild.description += "\n ${id}-->${issue}分支删除成功"
+									currentBuild.description += "\n ${projectId}-->${issue}分支删除成功"
 									println("${id}-->${issue}分支删除成功")
 								}
 							}
