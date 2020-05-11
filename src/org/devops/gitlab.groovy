@@ -85,5 +85,5 @@ def CreateMergeRequest(projectId,sourceBranch,target_Branch,title) {
 				  "title: "${title}"}"""
 					//"assignee_id: "${assigneeUser}"}"""
 	response = HttpReq('POST',apiUrl,'')
-	response = readJson test: """${response.content}"""
+	response = readJSON test: """${response.content}"""
 }
