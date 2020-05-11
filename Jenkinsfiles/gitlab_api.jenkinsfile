@@ -24,6 +24,7 @@ pipeline {
 			steps {
 				script {
 					projectId = gitlab.GetProjectId(repository)
+					result = gitlab.SearchMergeRequest(projectId,sourceBranch,targetBranch,'open')
 					gitlab.CreateMergeRequest(projectId,sourceBranch,targetBranch,mergeRequestTitle)
 				}
 			}
