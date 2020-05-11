@@ -84,7 +84,7 @@ pipeline {
 					println(issues)
 					for (issue in issues.keySet()){
 						for (projectName in issues[issue]){
-							println(projectName)
+							//println(projectName)
 							repoName = projectName.split()[0]
 							println(repoName)
 							projectId = gitlab.GetProjectID(projectName)
@@ -96,7 +96,7 @@ pipeline {
 							mergeId = result["iid"]
 							gitlab.AcceptMergeRequest(projectId,mergeId)
 							sleep 15
-						} cache(e){
+						} catch(e) {
 							println(e)
 						}
 						response = gitlab.SearchProjectBranchesInfo(projectId,issue)
@@ -107,7 +107,6 @@ pipeline {
 						    println("${projectName} --> ${issue} -->此分支已合并准备清理！")
 						    gitlab.DeleteBranch(projectId,issue)
 						}
-
 					}
 				}
 			}
