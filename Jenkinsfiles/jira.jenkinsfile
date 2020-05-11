@@ -80,7 +80,7 @@ pipeline {
 							projectIds.add(projectId)
 						} catch(e){
 							println(e)
-							println("未获取到项目ID，请检查模块名称！")
+							println("未获取到项目ID, 请检查模块名称!")
 						}
 					}
 					println(projectIds)
