@@ -83,8 +83,8 @@ pipeline {
 					}
 					println(issues)
 					for (issue in issues.keySet()){
-						println(issue)
 						for (projectName in issues[issue]){
+							println(projectName)
 							repoName = projectName.split("-")[0]
 							println(repoName)
 							//projectId = gitlab.GetProjectID(repoName, projectName)
