@@ -87,7 +87,7 @@ pipeline {
 							//println(projectName)
 							repoName = projectName.split()[0]
 							println(repoName)
-							projectId = gitlab.GetProjectID(projectName)
+							projectId = gitlab.GetProjectId(projectName)
 						}
 						try{
 							println("创建合并请求 projectId -->  RELEASE-${versionName}  ---> master")
