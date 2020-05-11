@@ -17,7 +17,7 @@ pipeline {
 		//string(name: 'sourceBranch', defaultValue: '', description: '合并请求的源分支')
 		//string(name: 'targetBranch', defaultValue: '', description: '合并请求的目标分支')
 		//string(name: 'mergeRequestTitle', defaultValue: '', description: '合并请求的名称')
-		string(name: 'gitlabUserName', defaultValue: '', description: 'GitLab上的用户')
+		string(name: 'gitlabUserName', defaultValue: '', description: 'GitLab用户')
 	}
 	stages {
 		stage('GetUserId') {

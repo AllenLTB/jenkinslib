@@ -90,7 +90,7 @@ def CreateMergeRequest(projectId,sourceBranch,target_Branch,title) {
 
 //获取用户ID
 def GetUserId(username) {
-	apiUrl = "users?username${username}"
+	apiUrl = "users?username=${username}"
 	response = HttpReq('GET',apiUrl,'')
 	response = readJSON text: """${response.content}"""
 	println(response["id"])
