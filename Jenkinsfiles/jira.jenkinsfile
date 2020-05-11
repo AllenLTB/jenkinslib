@@ -101,6 +101,7 @@ pipeline {
 						}
 						response = gitlab.SearchProjectBranchesInfo(projectId,issue)
 						println(response[projectId][0]['merged'])
+						println('111111111111111111111111111111111111111111111111111111')
 						if (response[projectId][0]['merged'] == false){
 							println("${projectName} --> ${issue} -->此分支未合并暂时忽略！")
 						} else {
