@@ -23,7 +23,7 @@ pipeline {
 		stage('GetUserId') {
 			steps {
 				script {
-					GetUserId(gitlabUserName)
+					gitlab.GetUserId(gitlabUserName)
 				}
 			}
 		}
